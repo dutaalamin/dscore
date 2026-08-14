@@ -72,7 +72,6 @@ export default function MatchSetup({ onStart }) {
           }}
           className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-black text-zinc-950 bg-[#FFF9CA] hover:bg-[#FFF5B2] shadow-lg shadow-[#FFF9CA]/10 rounded-lg transition-all active:scale-95 uppercase tracking-wider"
         >
-          <Clock className="w-3.5 h-3.5" strokeWidth={2.5} />
           <span>Riwayat</span>
         </button>
       </div>
