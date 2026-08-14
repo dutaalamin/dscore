@@ -46,9 +46,12 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
     rallyTimeline,
   } = state;
 
+  // Track if the match was already ended when we loaded it (e.g. viewing history)
+  const prevMatchEnded = React.useRef(savedMatchState?.matchEnded || false);
+
   // Trigger confetti when match ends
   useEffect(() => {
-    if (matchEnded && winner) {
+    if (matchEnded && winner && !prevMatchEnded.current) {
       const duration = 4 * 1000;
       const end = Date.now() + duration;
 
@@ -74,6 +77,9 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
       };
       frame();
     }
+    
+    // Update the ref so we don't trigger it again if component re-renders
+    prevMatchEnded.current = matchEnded;
   }, [matchEnded, winner]);
 
   // Handle score increments
