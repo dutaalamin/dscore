@@ -453,7 +453,7 @@ export const useBadminton = (config, matchId = null, isViewer = false) => {
     setIsTimerRunning(true);
   };
 
-  // Re-configure match (back to setup)
+  // Re-configure match (back to setup - resets game!)
   const changeSettings = (newConfig) => {
     if (isViewer) return;
     playSound('click');
@@ -463,6 +463,12 @@ export const useBadminton = (config, matchId = null, isViewer = false) => {
     setRedoStack([]);
     setTimer(0);
     setIsTimerRunning(false);
+  };
+
+  // Safely update config (like voice toggle) without resetting game state
+  const updateConfig = (newConfig) => {
+    if (isViewer) return;
+    setMatchConfig(newConfig);
   };
 
   // Switch server (e.g. manual serve correction before point begins)
@@ -510,6 +516,7 @@ export const useBadminton = (config, matchId = null, isViewer = false) => {
     dismissGameEnded,
     restartMatch,
     changeSettings,
+    updateConfig,
     setServerManually,
     swapPositionsManually,
     canUndo: history.length > 0,

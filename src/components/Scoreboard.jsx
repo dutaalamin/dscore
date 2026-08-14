@@ -23,6 +23,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
     dismissGameEnded,
     restartMatch,
     changeSettings,
+    updateConfig,
     setServerManually,
     swapPositionsManually,
     canUndo,
@@ -117,7 +118,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
   // Toggle voice announcer state
   const handleToggleVoice = () => {
     const nextVoiceState = !matchConfig.voiceEnabled;
-    changeSettings({
+    updateConfig({
       ...matchConfig,
       voiceEnabled: nextVoiceState
     });
