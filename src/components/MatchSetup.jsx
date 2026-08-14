@@ -304,9 +304,9 @@ export default function MatchSetup({ onStart }) {
         <MatchHistory
           onClose={() => setShowHistory(false)}
           onSelectMatch={(matchId) => {
-            setShowHistory(false);
-            window.history.pushState(null, '', `?match=${matchId}`);
-            window.location.reload();
+            // Langsung navigasi ke URL match tanpa menutup modal terlebih dahulu
+            // agar tidak terjadi efek berkedip/flash halaman home
+            window.location.href = `?match=${matchId}`;
           }}
         />
       )}
