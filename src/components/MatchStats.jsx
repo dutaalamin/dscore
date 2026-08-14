@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, Award, Zap, BarChart2 } from 'lucide-react';
+
 
 export default function MatchStats({
   rallyTimeline,
@@ -47,10 +47,9 @@ export default function MatchStats({
   const teamBName = playerBNames.join(' & ');
 
   return (
-    <div className="bg-zinc-950 border border-zinc-800/80 rounded-2xl p-6 space-y-6 shadow-md">
-      <div className="flex items-center gap-2 border-b border-zinc-800/80 pb-3">
-        <BarChart2 className="w-5 h-5 text-white" />
-        <h3 className="text-sm font-bold uppercase tracking-wider text-white">Statistik Pertandingan</h3>
+    <div className="space-y-6 py-2">
+      <div className="pb-2 border-b border-zinc-900">
+        <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-500">Statistik Pertandingan</h3>
       </div>
 
       {/* Set Scores List */}

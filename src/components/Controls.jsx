@@ -44,7 +44,7 @@ export default function Controls({
 
 
   return (
-    <div className="w-full bg-zinc-950 border border-zinc-800/80 rounded-2xl p-3 flex flex-row flex-wrap sm:flex-nowrap gap-3 items-center justify-between shadow-lg">
+    <div className="w-full py-4 flex flex-row flex-wrap sm:flex-nowrap gap-3 items-center justify-between border-t border-zinc-900 mt-2">
       
       {/* Left controls: Audio Toggle */}
       <div className="flex gap-1.5 items-center justify-start shrink-0">

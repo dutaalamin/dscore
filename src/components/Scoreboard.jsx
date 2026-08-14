@@ -166,15 +166,15 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-6 space-y-6">
       
-      {/* Back Button Row — Clean left alignment, prevents overlapping on mobile */}
+      {/* Back Button — Aligned left on mobile, absolute top-left on desktop */}
       {!isViewer && (
-        <div className="flex justify-start">
+        <div className="flex justify-start sm:block">
           <button
             onClick={() => {
               playSound('click');
               setShowHomeConfirm(true);
             }}
-            className="px-4 py-2 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 rounded-xl transition-all"
+            className="sm:absolute sm:top-6 sm:left-6 z-40 px-4 py-2 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 rounded-xl transition-all"
             title="Kembali ke halaman utama"
           >
             Back
@@ -182,13 +182,13 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
         </div>
       )}
 
-      {/* Header Info */}
-      <div className="flex justify-between items-center bg-zinc-950/80 border border-zinc-800/80 rounded-2xl px-5 sm:px-6 py-3 shadow-md">
+      {/* Header Info — Clean and Borderless */}
+      <div className="flex justify-between items-center py-2 border-b border-zinc-900">
         <div>
-          <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-sans">Status Pertandingan</span>
-          <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5 mt-0.5 font-sans">
+          <span className="text-[9px] text-gray-500 font-bold uppercase tracking-widest font-sans">Status Pertandingan</span>
+          <h2 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5 mt-0.5 font-sans">
             {matchConfig.matchType === 'singles' ? 'Tunggal' : 'Ganda'} 
-            <span className="text-gray-600">•</span> 
+            <span className="text-zinc-850">•</span> 
             Target {matchConfig.targetPoints} Poin
           </h2>
         </div>
@@ -196,7 +196,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
         {/* Set Tracker Broadcaster */}
         <div className="flex gap-2">
           {gameHistory.map((h, i) => (
-            <div key={i} className="text-xs bg-zinc-900/40 border border-zinc-800/50 rounded-lg px-2.5 py-1 text-gray-400 font-sans font-bold">
+            <div key={i} className="text-xs bg-zinc-900/20 border border-zinc-850 rounded-lg px-2.5 py-1 text-zinc-500 font-sans font-bold">
               G{i+1}: <span className="text-[#FFF9CA]">{h.scoreA}</span>-<span className="text-[#E3FDFD]">{h.scoreB}</span>
             </div>
           ))}
