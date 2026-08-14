@@ -6,7 +6,7 @@ import MatchStats from './MatchStats';
 import Controls from './Controls';
 import confetti from 'canvas-confetti';
 import { Award, RotateCcw, AlertTriangle, ArrowRight, ArrowLeft } from 'lucide-react';
-import { playSound } from '../utils/audio';
+import { playSound, stopSpeech } from '../utils/audio';
 
 export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null, isViewer = false }) {
   const [showHomeConfirm, setShowHomeConfirm] = useState(false);
@@ -118,6 +118,9 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
   // Toggle voice announcer state
   const handleToggleVoice = () => {
     const nextVoiceState = !matchConfig.voiceEnabled;
+    if (!nextVoiceState) {
+      stopSpeech();
+    }
     updateConfig({
       ...matchConfig,
       voiceEnabled: nextVoiceState

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { announceScore, playSound } from '../utils/audio';
 import { supabase } from '../utils/supabase';
 
@@ -202,8 +202,11 @@ export const useBadminton = (config, matchId = null, isViewer = false) => {
   };
 
   // Sound and voice announcer for first serve on mount / setup
+  const hasAnnouncedStart = useRef(false);
   useEffect(() => {
+    if (hasAnnouncedStart.current) return;
     if (matchConfig.voiceEnabled && window.speechSynthesis) {
+      hasAnnouncedStart.current = true;
       // Cancel any ongoing/queued announcements to prevent double trigger in React StrictMode
       window.speechSynthesis.cancel();
 
