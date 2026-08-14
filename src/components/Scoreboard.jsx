@@ -166,18 +166,20 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-6 space-y-6">
       
-      {/* Back Button — Fixed Top Left */}
+      {/* Back Button Row — Clean left alignment, prevents overlapping on mobile */}
       {!isViewer && (
-        <button
-          onClick={() => {
-            playSound('click');
-            setShowHomeConfirm(true);
-          }}
-          className="fixed top-4 left-4 z-40 px-4 py-2 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900/60 border border-zinc-800 hover:bg-zinc-800 rounded-xl transition-all backdrop-blur-sm"
-          title="Kembali ke halaman utama"
-        >
-          Back
-        </button>
+        <div className="flex justify-start">
+          <button
+            onClick={() => {
+              playSound('click');
+              setShowHomeConfirm(true);
+            }}
+            className="px-4 py-2 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 rounded-xl transition-all"
+            title="Kembali ke halaman utama"
+          >
+            Back
+          </button>
+        </div>
       )}
 
       {/* Header Info */}
@@ -253,7 +255,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
       {/* 1. Game Ended Modal */}
       {gameEnded && !matchEnded && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-zinc-950 border border-zinc-800/80 max-w-md w-full rounded-3xl p-8 text-center space-y-6 shadow-2xl backdrop-blur-md">
+          <div className="bg-zinc-950 border border-zinc-900 max-w-md w-full rounded-3xl p-8 text-center space-y-6 shadow-2xl">
             
             <div className="space-y-2">
               <h3 className="text-2xl font-black text-white">GAME SELESAI!</h3>
@@ -283,8 +285,8 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
             </div>
 
             <div className="p-3 bg-zinc-900/10 border border-zinc-850 text-zinc-400 text-xs rounded-xl flex items-center justify-center gap-2 font-sans font-bold">
-              <ArrowRight className="w-3.5 h-3.5 text-zinc-500" />
-              <span>Harap bertukar sisi lapangan untuk game selanjutnya!</span>
+              <Award className="w-4 h-4 text-amber-500" />
+              <span>Poin Tersinkronisasi Online</span>
             </div>
 
             <button
@@ -292,7 +294,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
                 playSound('click');
                 dismissGameEnded();
               }}
-              className="w-full py-3.5 bg-zinc-800 border border-zinc-700 text-white font-bold hover:bg-zinc-750 hover:border-zinc-650 rounded-xl transition-all duration-200 shadow-lg active:scale-[0.98]"
+              className="w-full py-3.5 bg-zinc-900 border border-zinc-800 text-white font-bold hover:bg-zinc-800 rounded-xl transition-all duration-200 shadow-lg active:scale-[0.98]"
             >
               Lanjutkan Game Berikutnya
             </button>
@@ -303,7 +305,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
       {/* 2. Match Ended (Winner) Modal */}
       {matchEnded && (
         <div className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 z-50">
-          <div className="bg-zinc-950 border border-zinc-800/80 max-w-lg w-full rounded-3xl p-8 text-center space-y-6 shadow-2xl backdrop-blur-md">
+          <div className="bg-zinc-950 border border-zinc-900 max-w-lg w-full rounded-3xl p-8 text-center space-y-6 shadow-2xl">
 
             <div className="space-y-2">
               <h3 className="text-3xl font-black tracking-tight text-white">PERTANDINGAN SELESAI!</h3>
@@ -338,7 +340,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
                   playSound('warning');
                   restartMatch();
                 }}
-                className="flex items-center justify-center gap-1.5 py-3.5 px-4 rounded-xl border border-zinc-800 bg-zinc-900/30 text-gray-400 font-bold hover:bg-zinc-900 hover:text-white text-sm transition-all"
+                className="flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl border border-zinc-900 bg-zinc-950 text-gray-400 font-bold hover:bg-zinc-900 hover:text-white text-sm transition-all"
               >
                 <RotateCcw className="w-4 h-4" />
                 Ulangi Match
@@ -357,29 +359,26 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
           </div>
         </div>
       )}
-      {/* 3. Custom Home Confirmation Modal */}
+
+      {/* 3. Custom Home Confirmation Modal — Redesigned (No AI Slop) */}
       {showHomeConfirm && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-zinc-950 border border-zinc-800/80 max-w-sm w-full rounded-2xl p-6 text-center space-y-5 shadow-2xl">
-            <div className="w-12 h-12 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto border border-red-500/20">
-              <AlertTriangle className="w-6 h-6" />
-            </div>
-            
+          <div className="bg-zinc-950 border border-zinc-900 max-w-sm w-full rounded-3xl p-8 text-center space-y-6 shadow-2xl">
             <div className="space-y-2">
-              <h3 className="text-lg font-bold text-white uppercase tracking-wider">Kembali ke Home?</h3>
-              <p className="text-gray-400 text-xs leading-relaxed">
+              <h3 className="text-xl font-black text-white uppercase tracking-wider">Kembali ke Home?</h3>
+              <p className="text-zinc-400 text-sm leading-relaxed">
                 Skor dan statistik pertandingan saat ini akan hilang sepenuhnya. Apakah Anda yakin?
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-1">
+            <div className="grid grid-cols-2 gap-3 pt-2">
               <button
                 onClick={() => {
                   playSound('click');
                   setShowHomeConfirm(false);
                   onBackToSetup();
                 }}
-                className="py-2.5 px-4 bg-red-600 text-white hover:bg-red-500 font-bold rounded-xl text-xs transition-all active:scale-98 shadow-lg shadow-red-500/10"
+                className="py-3 px-4 bg-red-650 text-white hover:bg-red-600 font-bold rounded-xl text-xs transition-all active:scale-[0.98]"
               >
                 Ya, Kembali
               </button>
@@ -389,7 +388,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
                   playSound('click');
                   setShowHomeConfirm(false);
                 }}
-                className="py-2.5 px-4 rounded-xl border border-zinc-800 bg-zinc-900/30 text-gray-400 font-bold hover:bg-zinc-900 hover:text-white text-xs transition-all"
+                className="py-3 px-4 rounded-xl border border-zinc-900 bg-zinc-950 text-zinc-400 font-bold hover:bg-zinc-900 hover:text-white text-xs transition-all"
               >
                 Batal
               </button>
