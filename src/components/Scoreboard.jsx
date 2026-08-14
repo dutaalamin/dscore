@@ -164,7 +164,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-6 space-y-6">
+    <div className="w-full max-w-6xl mx-auto px-4 flex flex-col h-full justify-between py-1 space-y-3 overflow-hidden">
       
       {/* Back Button — Aligned left on mobile, absolute top-left on desktop */}
       {!isViewer && (
@@ -183,7 +183,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
       )}
 
       {/* Header Info — Clean and Borderless */}
-      <div className="flex justify-between items-center py-2 border-b border-zinc-900">
+      <div className="flex justify-between items-center py-1">
         <div>
           <span className="text-[9px] text-gray-500 font-bold uppercase tracking-widest font-sans">Status Pertandingan</span>
           <h2 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5 mt-0.5 font-sans">
