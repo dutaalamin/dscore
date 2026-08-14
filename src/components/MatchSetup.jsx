@@ -123,14 +123,14 @@ export default function MatchSetup({ onStart }) {
           <div className="space-y-4">
             <div className="h-px bg-zinc-900 w-full mb-1"></div>
             <label className="block text-[#FFF9CA] text-[10px] font-bold uppercase tracking-widest">Tim A (Kiri)</label>
-            <div className="space-y-2 sm:space-y-3">
+            <div className={`grid gap-2 sm:gap-3 ${matchType === 'doubles' ? 'grid-cols-2' : 'grid-cols-1'}`}>
               <div>
                 <input
                   type="text"
                   value={playerA1}
                   onChange={(e) => setPlayerA1(e.target.value)}
                   placeholder="Nama Pemain 1"
-                  className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#FFF9CA] transition-all font-semibold"
+                  className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#FFF9CA] transition-all font-semibold"
                   required
                 />
               </div>
@@ -153,14 +153,14 @@ export default function MatchSetup({ onStart }) {
           <div className="space-y-4">
             <div className="h-px bg-zinc-900 w-full mb-1"></div>
             <label className="block text-[#E3FDFD] text-[10px] font-bold uppercase tracking-widest">Tim B (Kanan)</label>
-            <div className="space-y-2 sm:space-y-3">
+            <div className={`grid gap-2 sm:gap-3 ${matchType === 'doubles' ? 'grid-cols-2' : 'grid-cols-1'}`}>
               <div>
                 <input
                   type="text"
                   value={playerB1}
                   onChange={(e) => setPlayerB1(e.target.value)}
                   placeholder="Nama Pemain 1"
-                  className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#E3FDFD] transition-all font-semibold"
+                  className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#E3FDFD] transition-all font-semibold"
                   required
                 />
               </div>
