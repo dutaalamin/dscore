@@ -313,14 +313,18 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
         <div className="fixed inset-0 bg-zinc-950 z-50 overflow-y-auto flex flex-col animate-fade-in">
           <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 max-w-3xl mx-auto w-full space-y-6 sm:space-y-12 my-auto">
             
-            <div className="text-center space-y-2 sm:space-y-4">
-              <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-widest mb-2 sm:mb-4">
-                Detail Pertandingan
-              </h2>
-              <h3 className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest font-bold mt-2">Pemenang</h3>
-              <h1 className={`text-3xl sm:text-6xl font-black tracking-tight uppercase ${winner === 'A' ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
-                {winner === 'A' ? playerANames.join(' & ') : playerBNames.join(' & ')}
-              </h1>
+            <div className="text-center space-y-8 sm:space-y-10 w-full">
+              <div>
+                <h2 className="text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 uppercase tracking-[0.1em] mb-8">
+                  Detail Pertandingan
+                </h2>
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-sm sm:text-base text-[#E3FDFD] uppercase tracking-[0.2em] font-black opacity-80">Winner</h3>
+                <h1 className={`text-4xl sm:text-6xl font-black tracking-tight uppercase drop-shadow-2xl ${winner === 'A' ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
+                  {winner === 'A' ? playerANames.join(' & ') : playerBNames.join(' & ')}
+                </h1>
+              </div>
             </div>
 
             <div className="w-full max-w-lg space-y-2">
