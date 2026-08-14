@@ -21,7 +21,8 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
         .order('created_at', { ascending: false });
 
       if (data) {
-        setMatches(data);
+        const finishedMatches = data.filter(match => match.state?.matchEnded === true);
+        setMatches(finishedMatches);
       } else {
         console.error('Gagal mengambil riwayat:', error);
       }

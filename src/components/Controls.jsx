@@ -1,5 +1,5 @@
 import React from 'react';
-import { Undo2, Redo2, ArrowLeftRight, Play, Pause, RotateCcw, Home, Volume2, VolumeX } from 'lucide-react';
+import { Undo2, Redo2, ArrowLeftRight, Play, Pause, RotateCcw, Volume2, VolumeX } from 'lucide-react';
 import { playSound } from '../utils/audio';
 
 export default function Controls({
@@ -10,7 +10,6 @@ export default function Controls({
   onRedo,
   onSwapSides,
   onReset,
-  onConfigure,
   canUndo,
   canRedo,
   voiceEnabled,
@@ -42,23 +41,13 @@ export default function Controls({
     }
   };
 
-  const handleConfigureClick = () => {
-    onConfigure();
-  };
+
 
   return (
     <div className="w-full bg-zinc-950 border border-zinc-800/80 rounded-2xl p-3 flex flex-row flex-wrap sm:flex-nowrap gap-3 items-center justify-between shadow-lg">
       
-      {/* Left controls: Settings & Audio Toggle */}
+      {/* Left controls: Audio Toggle */}
       <div className="flex gap-1.5 items-center justify-start shrink-0">
-        <button
-          onClick={handleConfigureClick}
-          className="flex items-center gap-1 p-2 sm:px-3 sm:py-2 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900/40 border border-zinc-800/50 hover:bg-zinc-900 rounded-xl transition-all"
-          title="Home"
-        >
-          <Home className="w-4 h-4" />
-          <span className="hidden sm:inline">Home</span>
-        </button>
 
         <button
           onClick={onToggleVoice}

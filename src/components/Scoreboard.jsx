@@ -5,7 +5,7 @@ import CourtVisualizer from './CourtVisualizer';
 import MatchStats from './MatchStats';
 import Controls from './Controls';
 import confetti from 'canvas-confetti';
-import { Award, RotateCcw, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Award, RotateCcw, AlertTriangle, ArrowRight, ArrowLeft } from 'lucide-react';
 import { playSound } from '../utils/audio';
 
 export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null, isViewer = false }) {
@@ -166,8 +166,24 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-6 space-y-6">
       
+      {/* Back Button Row */}
+      {!isViewer && (
+        <div className="flex justify-start">
+          <button
+            onClick={() => {
+              playSound('click');
+              setShowHomeConfirm(true);
+            }}
+            className="text-zinc-500 hover:text-white text-xs font-bold transition-all"
+            title="Kembali ke halaman utama"
+          >
+            Back
+          </button>
+        </div>
+      )}
+
       {/* Header Info */}
-      <div className="flex justify-between items-center bg-zinc-950/80 border border-zinc-800/80 rounded-2xl px-6 py-3 shadow-md">
+      <div className="flex justify-between items-center bg-zinc-950/80 border border-zinc-800/80 rounded-2xl px-5 sm:px-6 py-3 shadow-md">
         <div>
           <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-sans">Status Pertandingan</span>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5 mt-0.5 font-sans">
@@ -201,7 +217,6 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
         onRedo={isViewer ? () => {} : redo}
         onSwapSides={isViewer ? () => {} : toggleSides}
         onReset={isViewer ? () => {} : restartMatch}
-        onConfigure={onBackToSetup}
         canUndo={isViewer ? false : canUndo}
         canRedo={isViewer ? false : canRedo}
         voiceEnabled={isViewer ? false : matchConfig.voiceEnabled}
