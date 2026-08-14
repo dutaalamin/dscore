@@ -176,13 +176,6 @@ function App() {
           <MatchSetup onStart={handleStartMatch} />
         )}
       </main>
-
-      {/* Premium Dark Theme Footer */}
-      {!isPlaying && (
-        <footer className="w-full py-6 text-center text-zinc-550 text-[10px] font-sans tracking-widest uppercase">
-          <div>DSCORE 2026</div>
-        </footer>
-      )}
     </div>
   );
 }
