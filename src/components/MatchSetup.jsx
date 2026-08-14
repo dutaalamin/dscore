@@ -63,16 +63,16 @@ export default function MatchSetup({ onStart }) {
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-8 relative">
       {/* Floating History Button */}
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10">
         <button
           type="button"
           onClick={() => {
             playSound('click');
             setShowHistory(true);
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900/40 border border-zinc-800/80 hover:bg-zinc-900 rounded-xl transition-all"
+          className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-black text-zinc-950 bg-[#FFF9CA] hover:bg-[#FFF5B2] shadow-lg shadow-[#FFF9CA]/10 rounded-xl transition-all active:scale-95 uppercase tracking-wider"
         >
-          <Clock className="w-3.5 h-3.5" />
+          <Clock className="w-4 h-4" strokeWidth={2.5} />
           <span>Riwayat</span>
         </button>
       </div>
