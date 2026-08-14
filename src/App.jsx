@@ -11,6 +11,8 @@ function App() {
   const [isViewer, setIsViewer] = useState(false);
   const [loading, setLoading] = useState(true);
   const [dbError, setDbError] = useState(null);
+  const [savedMatchState, setSavedMatchState] = useState(null);
+  const [savedTimer, setSavedTimer] = useState(null);
 
   // Cek parameter URL saat aplikasi dibuka
   useEffect(() => {
@@ -30,6 +32,10 @@ function App() {
             setMatchId(id);
             setMatchConfig(data.config);
             setIsPlaying(true);
+            
+            // Simpan state dan timer yang sudah ada dari database
+            if (data.state) setSavedMatchState(data.state);
+            if (data.timer !== undefined) setSavedTimer(data.timer);
             
             // Cek apakah pengguna saat ini adalah Wasit (Referee) yang sah
             const isReferee = localStorage.getItem(`referee_${id}`) === 'true';
@@ -158,7 +164,9 @@ function App() {
             matchConfig={matchConfig} 
             onBackToSetup={handleBackToSetup} 
             matchId={matchId} 
-            isViewer={isViewer} 
+            isViewer={isViewer}
+            savedMatchState={savedMatchState}
+            savedTimer={savedTimer}
           />
         ) : (
           <MatchSetup onStart={handleStartMatch} />

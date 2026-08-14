@@ -35,12 +35,12 @@ const createInitialState = (config) => {
   };
 };
 
-export const useBadminton = (config, matchId = null, isViewer = false) => {
+export const useBadminton = (config, matchId = null, isViewer = false, savedState = null, savedTimer = null) => {
   const [matchConfig, setMatchConfig] = useState(config);
-  const [state, setState] = useState(() => createInitialState(config));
+  const [state, setState] = useState(() => savedState || createInitialState(config));
   const [history, setHistory] = useState([]);
   const [redoStack, setRedoStack] = useState([]);
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(savedTimer || 0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   // Setup match timer (hanya untuk wasit)
@@ -205,6 +205,11 @@ export const useBadminton = (config, matchId = null, isViewer = false) => {
   const hasAnnouncedStart = useRef(false);
   useEffect(() => {
     if (hasAnnouncedStart.current) return;
+    // Don't announce if loading an existing match from history
+    if (savedState) {
+      hasAnnouncedStart.current = true;
+      return;
+    }
     if (matchConfig.voiceEnabled && window.speechSynthesis) {
       hasAnnouncedStart.current = true;
       // Cancel any ongoing/queued announcements to prevent double trigger in React StrictMode
