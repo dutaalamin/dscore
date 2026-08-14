@@ -4,7 +4,9 @@ import { playSound } from '../utils/audio';
 import MatchHistory from './MatchHistory';
 
 export default function MatchSetup({ onStart }) {
-  const [showHistory, setShowHistory] = useState(false);
+  const [showHistory, setShowHistory] = useState(() => {
+    return new URLSearchParams(window.location.search).get('history') === 'true';
+  });
   const [matchType, setMatchType] = useState('singles'); // singles | doubles
   const [playerA1, setPlayerA1] = useState('Pemain A1');
   const [playerA2, setPlayerA2] = useState('Pemain A2');
@@ -302,7 +304,12 @@ export default function MatchSetup({ onStart }) {
 
       {showHistory && (
         <MatchHistory
-          onClose={() => setShowHistory(false)}
+          onClose={() => {
+            setShowHistory(false);
+            if (window.location.search.includes('history=true')) {
+              window.history.replaceState(null, '', window.location.pathname);
+            }
+          }}
           onSelectMatch={(matchId) => {
             // Langsung navigasi ke URL match tanpa menutup modal terlebih dahulu
             // agar tidak terjadi efek berkedip/flash halaman home

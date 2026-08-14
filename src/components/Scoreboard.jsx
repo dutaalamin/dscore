@@ -364,10 +364,17 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-8">
               <button
-                onClick={() => { playSound('click'); onBackToSetup(); }}
+                onClick={() => { 
+                  playSound('click'); 
+                  if (savedMatchState) {
+                    window.location.href = '/?history=true';
+                  } else {
+                    onBackToSetup(); 
+                  }
+                }}
                 className="px-8 py-3.5 bg-[#FFF9CA] text-zinc-950 hover:bg-[#FFF5B2] font-black rounded-xl transition-all shadow-md active:scale-[0.98] uppercase tracking-wider text-xs"
               >
-                Kembali ke Beranda
+                {savedMatchState ? 'Kembali' : 'Kembali ke Beranda'}
               </button>
             </div>
           </div>
