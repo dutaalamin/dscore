@@ -355,14 +355,6 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-8">
-              {!isViewer && (
-                <button
-                  onClick={() => { playSound('warning'); restartMatch(); }}
-                  className="px-6 py-3 text-xs font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-wider"
-                >
-                  Ulangi Match
-                </button>
-              )}
               <button
                 onClick={() => { playSound('click'); onBackToSetup(); }}
                 className="px-8 py-3.5 bg-[#FFF9CA] text-zinc-950 hover:bg-[#FFF5B2] font-black rounded-xl transition-all shadow-md active:scale-[0.98] uppercase tracking-wider text-xs"
