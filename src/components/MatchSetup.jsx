@@ -15,8 +15,6 @@ export default function MatchSetup({ onStart }) {
 
   const [targetPoints, setTargetPoints] = useState(21);
   const [firstServer, setFirstServer] = useState('A');
-  const [voiceEnabled, setVoiceEnabled] = useState(true);
-  const [voiceLanguage, setVoiceLanguage] = useState('id'); // id | en
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,8 +28,8 @@ export default function MatchSetup({ onStart }) {
       playerB2: matchType === 'doubles' ? (playerB2.trim() || 'Pemain B2') : '',
       targetPoints: Number(targetPoints),
       firstServer,
-      voiceEnabled,
-      voiceLanguage,
+      voiceEnabled: true,
+      voiceLanguage: 'id',
     });
   };
 
@@ -50,14 +48,11 @@ export default function MatchSetup({ onStart }) {
     setFirstServer(srv);
   };
 
-  const handleVoiceToggle = () => {
-    playSound('click');
-    setVoiceEnabled(!voiceEnabled);
-  };
-
-  const handleVoiceLangChange = (lang) => {
-    playSound('click');
-    setVoiceLanguage(lang);
+  const handleCloseHistory = () => {
+    setShowHistory(false);
+    if (window.location.search.includes('history=true')) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
   };
 
   return (
@@ -240,56 +235,6 @@ export default function MatchSetup({ onStart }) {
               </button>
             </div>
           </div>
-        </div>
-
-        {/* Voice Announcer Settings */}
-        <div className="pt-5 sm:pt-6 border-t border-zinc-900 space-y-3 sm:space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className={voiceEnabled ? 'text-[#FFF9CA]' : 'text-zinc-500'}>
-                {voiceEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-white uppercase tracking-wide">Suara Komentator (Ref)</h4>
-                <p className="text-xs text-gray-400 mt-0.5">Bacakan skor saat poin bertambah.</p>
-              </div>
-            </div>
-
-            {/* Toggle switch */}
-            <button
-              type="button"
-              onClick={handleVoiceToggle}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${voiceEnabled ? 'bg-[#FFF9CA]' : 'bg-zinc-800'
-                }`}
-            >
-              <div
-                className={`w-4 h-4 rounded-full bg-zinc-950 transition-transform duration-200 ${voiceEnabled ? 'translate-x-6' : 'translate-x-0'
-                  }`}
-              />
-            </button>
-          </div>
-
-          {voiceEnabled && (
-            <div className="flex gap-2 items-center justify-end pl-8 border-t border-zinc-900 pt-3">
-              <span className="text-xs text-gray-500">Bahasa suara:</span>
-              <button
-                type="button"
-                onClick={() => handleVoiceLangChange('id')}
-                className={`text-xs px-2.5 py-1 rounded-lg transition-all ${voiceLanguage === 'id' ? 'bg-zinc-800 text-white font-bold' : 'text-gray-400 hover:text-white'
-                  }`}
-              >
-                Indonesia
-              </button>
-              <button
-                type="button"
-                onClick={() => handleVoiceLangChange('en')}
-                className={`text-xs px-2.5 py-1 rounded-lg transition-all ${voiceLanguage === 'en' ? 'bg-zinc-800 text-white font-bold' : 'text-gray-400 hover:text-white'
-                  }`}
-              >
-                English
-              </button>
-            </div>
-          )}
         </div>
 
         {/* Start Button */}
