@@ -343,17 +343,35 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
               <h3 className="text-xs text-gray-500 font-bold uppercase tracking-widest text-center mb-6">Ringkasan Set</h3>
               <div className="space-y-0 border-t border-b border-zinc-900/50 py-2">
                 {gameHistory.map((game, idx) => (
-                  <div key={idx} className="flex items-center justify-between py-4 border-b border-zinc-900/50 last:border-0">
-                    <span className="text-[10px] font-bold text-gray-500 w-16 uppercase tracking-wider">Set {idx + 1}</span>
-                    <div className="flex-1 flex items-center justify-center gap-8">
-                      <span className={`text-2xl font-black ${game.scoreA > game.scoreB ? 'text-[#FFF9CA]' : 'text-gray-600'}`}>{game.scoreA}</span>
-                      <span className="text-gray-800 font-light">-</span>
-                      <span className={`text-2xl font-black ${game.scoreB > game.scoreA ? 'text-[#E3FDFD]' : 'text-gray-600'}`}>{game.scoreB}</span>
-                    </div>
-                    <div className="w-16 text-right">
-                      <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wider">
-                        {game.scoreA > game.scoreB ? 'Tim A' : 'Tim B'}
-                      </span>
+                  <div key={idx} className="flex flex-col items-center justify-center py-5 border-b border-zinc-900/50 last:border-0 gap-3">
+                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest bg-zinc-900/60 border border-zinc-800 px-3 py-1 rounded-full">
+                      Set {idx + 1}
+                    </span>
+                    <div className="flex w-full items-center justify-between gap-3 sm:gap-6 mt-1">
+                      {/* Team A */}
+                      <div className="flex-1 text-right truncate">
+                        <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest ${game.scoreA > game.scoreB ? 'text-[#FFF9CA]' : 'text-zinc-500'}`}>
+                          {playerANames.join(' & ')}
+                        </span>
+                      </div>
+                      
+                      {/* Scores */}
+                      <div className="flex items-center justify-center gap-4 shrink-0 px-2">
+                        <span className={`text-2xl sm:text-3xl font-black ${game.scoreA > game.scoreB ? 'text-[#FFF9CA]' : 'text-zinc-600'}`}>
+                          {game.scoreA}
+                        </span>
+                        <span className="text-zinc-800 font-light text-xl">-</span>
+                        <span className={`text-2xl sm:text-3xl font-black ${game.scoreB > game.scoreA ? 'text-[#E3FDFD]' : 'text-zinc-600'}`}>
+                          {game.scoreB}
+                        </span>
+                      </div>
+
+                      {/* Team B */}
+                      <div className="flex-1 text-left truncate">
+                        <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest ${game.scoreB > game.scoreA ? 'text-[#E3FDFD]' : 'text-zinc-500'}`}>
+                          {playerBNames.join(' & ')}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 ))}
