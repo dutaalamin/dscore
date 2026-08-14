@@ -47,6 +47,29 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
     });
   };
 
+  const handleDeleteMatch = async (matchId) => {
+    if (!window.confirm("Hapus pertandingan ini secara permanen dari riwayat?")) return;
+    
+    playSound('click');
+    setLoading(true);
+    try {
+      const { error } = await supabase
+        .from('matches')
+        .delete()
+        .eq('id', matchId);
+        
+      if (error) {
+        console.error('Gagal menghapus riwayat:', error);
+        alert('Gagal menghapus pertandingan.');
+      } else {
+        fetchMatchHistory();
+      }
+    } catch (err) {
+      console.error('Error saat hapus riwayat:', err);
+    }
+    setLoading(false);
+  };
+
   const handleMatchClick = (matchId) => {
     playSound('click');
     onSelectMatch(matchId);
@@ -165,12 +188,18 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center justify-end self-stretch sm:self-auto shrink-0 pt-2 sm:pt-0">
+                    <div className="flex flex-col items-end justify-center self-stretch sm:self-auto shrink-0 pt-2 sm:pt-0 gap-3">
                       <button
                         onClick={() => handleMatchClick(match.id)}
-                        className="text-xs font-bold text-[#FFF9CA] hover:text-[#FFF5B2] hover:underline underline-offset-4 transition-all"
+                        className="text-xs font-bold text-[#FFF9CA] hover:text-[#FFF5B2] transition-colors"
                       >
                         Lihat Detail
+                      </button>
+                      <button
+                        onClick={() => handleDeleteMatch(match.id)}
+                        className="text-[10px] font-bold text-red-500/80 hover:text-red-400 transition-colors uppercase tracking-wider"
+                      >
+                        Hapus
                       </button>
                     </div>
                   </div>
