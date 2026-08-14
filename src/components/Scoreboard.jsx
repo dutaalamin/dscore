@@ -8,7 +8,7 @@ import confetti from 'canvas-confetti';
 import { Award, RotateCcw, AlertTriangle, ArrowRight, ArrowLeft } from 'lucide-react';
 import { playSound, stopSpeech } from '../utils/audio';
 
-export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null, isViewer = false }) {
+export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSetup, matchId = null, isViewer = false }) {
   const [showHomeConfirm, setShowHomeConfirm] = useState(false);
   const {
     state,
@@ -28,7 +28,8 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
     swapPositionsManually,
     canUndo,
     canRedo,
-  } = useBadminton(matchConfig, matchId, isViewer);
+    matchConfig,
+  } = useBadminton(initialMatchConfig, matchId, isViewer);
 
   const {
     scoreA,
