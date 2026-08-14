@@ -118,19 +118,28 @@ export default function MatchStats({
         <div className="space-y-3">
           <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Alur Poin (Timeline)</h4>
           <div className="flex flex-wrap gap-1.5 max-h-[120px] overflow-y-auto no-scrollbar py-1">
-            {rallyTimeline.map((team, idx) => (
-              <div
-                key={idx}
-                className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black font-sans transition-transform hover:scale-110 shrink-0 ${
-                  team === 'A'
-                    ? 'bg-[#FFF9CA] text-zinc-950'
-                    : 'bg-[#E3FDFD] text-zinc-950'
-                }`}
-                title={`Poin ke-${idx + 1} diperoleh oleh Tim ${team}`}
-              >
-                {idx + 1}
-              </div>
-            ))}
+            {(() => {
+              let runningA = 0;
+              let runningB = 0;
+              return rallyTimeline.map((team, idx) => {
+                if (team === 'A') runningA++;
+                else runningB++;
+                const displayScore = team === 'A' ? runningA : runningB;
+                return (
+                  <div
+                    key={idx}
+                    className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black font-sans transition-transform hover:scale-110 shrink-0 ${
+                      team === 'A'
+                        ? 'bg-[#FFF9CA] text-zinc-950'
+                        : 'bg-[#E3FDFD] text-zinc-950'
+                    }`}
+                    title={`Tim ${team} mencetak poin ke-${displayScore}`}
+                  >
+                    {displayScore}
+                  </div>
+                );
+              });
+            })()}
           </div>
         </div>
       )}
