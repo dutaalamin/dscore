@@ -302,58 +302,67 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
         </div>
       )}
 
-      {/* 2. Match Ended (Winner) Modal */}
+      {/* 2. Match Ended (Winner) Screen */}
       {matchEnded && (
-        <div className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 z-50">
-          <div className="bg-zinc-950 border border-zinc-900 max-w-lg w-full rounded-3xl p-8 text-center space-y-6 shadow-2xl">
+        <div className="fixed inset-0 bg-zinc-950 z-50 overflow-y-auto flex flex-col animate-fade-in">
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-zinc-900/50 shrink-0">
+            <h2 className="text-xs font-bold text-gray-500 tracking-widest uppercase">Detail Pertandingan</h2>
+            <button
+              onClick={() => { playSound('click'); onBackToSetup(); }}
+              className="text-xs font-bold text-gray-400 hover:text-white transition-colors"
+            >
+              Tutup
+            </button>
+          </div>
 
-            <div className="space-y-2">
-              <h3 className="text-3xl font-black tracking-tight text-white">PERTANDINGAN SELESAI!</h3>
-              <p className="text-gray-400 text-sm">
-                Pemenang Pertandingan adalah
-              </p>
-              <h4 className={`text-2xl font-black tracking-tight uppercase ${winner === 'A' ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
+          <div className="flex-1 flex flex-col items-center justify-center p-6 max-w-3xl mx-auto w-full space-y-12 my-auto">
+            
+            <div className="text-center space-y-4">
+              <div className="inline-block px-3 py-1 border border-zinc-800 rounded-full text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">
+                Pertandingan Selesai
+              </div>
+              <h3 className="text-xs text-gray-500 uppercase tracking-widest font-bold">Pemenang</h3>
+              <h1 className={`text-4xl sm:text-6xl font-black tracking-tight uppercase ${winner === 'A' ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
                 {winner === 'A' ? playerANames.join(' & ') : playerBNames.join(' & ')}
-              </h4>
+              </h1>
             </div>
 
-            {/* Set scores recap */}
-            <div className="bg-zinc-900/30 rounded-2xl p-5 border border-zinc-800/80 divide-y divide-zinc-850">
-              <div className="text-[10px] text-gray-500 font-sans font-bold uppercase tracking-wider mb-2">Ringkasan Skor Set</div>
-              <div className="flex justify-center gap-6 pt-2">
+            <div className="w-full max-w-lg space-y-2">
+              <h3 className="text-xs text-gray-500 font-bold uppercase tracking-widest text-center mb-6">Ringkasan Set</h3>
+              <div className="space-y-0 border-t border-b border-zinc-900/50 py-2">
                 {gameHistory.map((game, idx) => (
-                  <div key={idx} className="text-center font-sans">
-                    <div className="text-[8px] text-gray-500 font-bold mb-0.5">GAME {idx + 1}</div>
-                    <div className="text-base font-bold text-white">
-                      <span className={game.scoreA > game.scoreB ? 'text-[#FFF9CA] font-black text-lg' : 'text-[#FFF9CA]/55'}>{game.scoreA}</span>
-                      <span className="text-gray-600 mx-1.5">-</span>
-                      <span className={game.scoreB > game.scoreA ? 'text-[#E3FDFD] font-black text-lg' : 'text-[#E3FDFD]/55'}>{game.scoreB}</span>
+                  <div key={idx} className="flex items-center justify-between py-4 border-b border-zinc-900/50 last:border-0">
+                    <span className="text-[10px] font-bold text-gray-500 w-16 uppercase tracking-wider">Set {idx + 1}</span>
+                    <div className="flex-1 flex items-center justify-center gap-8">
+                      <span className={`text-2xl font-black ${game.scoreA > game.scoreB ? 'text-[#FFF9CA]' : 'text-gray-600'}`}>{game.scoreA}</span>
+                      <span className="text-gray-800 font-light">-</span>
+                      <span className={`text-2xl font-black ${game.scoreB > game.scoreA ? 'text-[#E3FDFD]' : 'text-gray-600'}`}>{game.scoreB}</span>
+                    </div>
+                    <div className="w-16 text-right">
+                      <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wider">
+                        {game.scoreA > game.scoreB ? 'Tim A' : 'Tim B'}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-8">
+              {!isViewer && (
+                <button
+                  onClick={() => { playSound('warning'); restartMatch(); }}
+                  className="px-6 py-3 text-xs font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-wider"
+                >
+                  Ulangi Match
+                </button>
+              )}
               <button
-                onClick={() => {
-                  playSound('warning');
-                  restartMatch();
-                }}
-                className="flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl border border-zinc-900 bg-zinc-950 text-gray-400 font-bold hover:bg-zinc-900 hover:text-white text-sm transition-all"
+                onClick={() => { playSound('click'); onBackToSetup(); }}
+                className="px-8 py-3.5 bg-[#FFF9CA] text-zinc-950 hover:bg-[#FFF5B2] font-black rounded-xl transition-all shadow-md active:scale-[0.98] uppercase tracking-wider text-xs"
               >
-                <RotateCcw className="w-4 h-4" />
-                Ulangi Match
-              </button>
-              
-              <button
-                onClick={() => {
-                  playSound('click');
-                  onBackToSetup();
-                }}
-                className="py-3.5 px-4 bg-[#FFF9CA] text-zinc-950 hover:bg-[#FFF5B2] font-black rounded-xl text-sm transition-all shadow-md active:scale-[0.98]"
-              >
-                Pertandingan Baru
+                Kembali ke Beranda
               </button>
             </div>
           </div>

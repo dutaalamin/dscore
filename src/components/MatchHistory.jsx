@@ -126,68 +126,51 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                 return (
                   <div 
                     key={match.id} 
-                    className="bg-zinc-900/20 border border-zinc-800/60 hover:border-zinc-850 hover:bg-zinc-900/35 rounded-2xl p-4 sm:p-5 transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+                    className="border-b border-zinc-900/50 py-4 last:border-0 hover:bg-zinc-900/20 transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-2"
                   >
-                    <div className="space-y-2 flex-1 min-w-0">
+                    <div className="space-y-1.5 flex-1 min-w-0">
                       {/* Meta Info */}
-                      <div className="flex items-center gap-2 text-[10px] text-gray-550 font-bold uppercase tracking-wider">
-                        <span className="bg-zinc-850 px-2 py-0.5 rounded border border-zinc-800">
-                          {isSingles ? 'Tunggal' : 'Ganda'}
-                        </span>
+                      <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                        <span>{isSingles ? 'Tunggal' : 'Ganda'}</span>
                         <span>•</span>
                         <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
                           {formatDate(match.created_at)}
                         </span>
                       </div>
 
-                      {/* Matchup names */}
-                      <div className="flex flex-col gap-1">
+                      {/* Matchup names & scores */}
+                      <div className="flex flex-col gap-1 mt-1">
                         <div className="flex items-center justify-between text-xs sm:text-sm">
                           <span className={`font-bold truncate ${state.winner === 'A' ? 'text-[#FFF9CA] font-extrabold' : 'text-[#FFF9CA]/60'}`}>
-                            {teamAName}
+                            {teamAName} {state.winner === 'A' && <span className="ml-1 text-[10px]">🏆</span>}
                           </span>
-                          <span className="text-[10px] text-gray-500 font-mono px-2">Set: {gamesA}</span>
+                          <span className="text-xs text-gray-400 font-mono px-2">{gamesA}</span>
                         </div>
                         <div className="flex items-center justify-between text-xs sm:text-sm">
                           <span className={`font-bold truncate ${state.winner === 'B' ? 'text-[#E3FDFD] font-extrabold' : 'text-[#E3FDFD]/60'}`}>
-                            {teamBName}
+                            {teamBName} {state.winner === 'B' && <span className="ml-1 text-[10px]">🏆</span>}
                           </span>
-                          <span className="text-[10px] text-gray-500 font-mono px-2">Set: {gamesB}</span>
+                          <span className="text-xs text-gray-400 font-mono px-2">{gamesB}</span>
                         </div>
                       </div>
 
                       {/* Set scores recap */}
                       {gameHistory.length > 0 && (
-                        <div className="flex flex-wrap gap-2 pt-1">
-                          {gameHistory.map((g, idx) => (
-                            <span key={idx} className="text-[9px] bg-zinc-900/40 border border-zinc-850 text-gray-450 px-2 py-0.5 rounded font-mono">
-                              Set {idx + 1}: <span className={g.scoreA > g.scoreB ? 'text-[#FFF9CA] font-bold' : 'text-[#FFF9CA]/55'}>{g.scoreA}</span>-<span className={g.scoreB > g.scoreA ? 'text-[#E3FDFD] font-bold' : 'text-[#E3FDFD]/55'}>{g.scoreB}</span>
-                            </span>
-                          ))}
+                        <div className="flex flex-wrap gap-2 pt-2">
+                          <span className="text-[10px] text-gray-500 font-mono">
+                            {gameHistory.map((g, idx) => `Set ${idx + 1}: ${g.scoreA}-${g.scoreB}`).join(', ')}
+                          </span>
                         </div>
                       )}
                     </div>
 
-                    {/* Actions / Winner display */}
-                    <div className="flex sm:flex-col items-end gap-2 self-stretch sm:self-auto shrink-0 justify-between sm:justify-start pt-2 sm:pt-0 border-t border-zinc-850 sm:border-t-0">
-                      {state.winner && (
-                        <div className={`flex items-center gap-1 text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider self-start sm:self-auto border ${
-                          state.winner === 'A' 
-                            ? 'text-[#FFF9CA] bg-[#FFF9CA]/5 border-[#FFF9CA]/25' 
-                            : 'text-[#E3FDFD] bg-[#E3FDFD]/5 border-[#E3FDFD]/25'
-                        }`}>
-                          <Trophy className="w-3.5 h-3.5 fill-current" />
-                          <span>Winner: Tim {state.winner}</span>
-                        </div>
-                      )}
-                      
+                    {/* Actions */}
+                    <div className="flex items-center justify-end self-stretch sm:self-auto shrink-0 pt-2 sm:pt-0">
                       <button
                         onClick={() => handleMatchClick(match.id)}
-                        className="flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-gray-300 bg-zinc-900/40 border border-zinc-850 hover:bg-zinc-900 hover:text-white rounded-xl transition-all self-end"
+                        className="text-xs font-bold text-[#FFF9CA] hover:text-[#FFF5B2] hover:underline underline-offset-4 transition-all"
                       >
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>Detail</span>
+                        Lihat Detail
                       </button>
                     </div>
                   </div>
