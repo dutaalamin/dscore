@@ -117,7 +117,7 @@ export default function ScoreCard({
             e.stopPropagation(); // Avoid triggering parent score increment
             onDecrement();
           }}
-          className="absolute bottom-3 right-3 xs:bottom-4 xs:right-4 sm:bottom-8 sm:right-8 z-30 p-1.5 sm:p-2.5 bg-black/60 border border-carbon-border hover:bg-carbon-light text-gray-400 hover:text-white rounded-lg sm:rounded-xl transition-all hover:scale-105 active:scale-95"
+          className="absolute bottom-3 right-3 xs:bottom-4 xs:right-4 sm:bottom-8 sm:right-8 z-30 p-1.5 sm:p-2.5 bg-black/60 border border-zinc-800 hover:bg-zinc-900 text-gray-400 hover:text-white rounded-lg sm:rounded-xl transition-all hover:scale-105 active:scale-95"
           title="Kurangi skor"
         >
           <Minus className="w-3.5 h-3.5 sm:w-5 sm:h-5" />

@@ -47,13 +47,13 @@ export default function Controls({
   };
 
   return (
-    <div className="w-full bg-carbon rounded-2xl border border-carbon-border p-3 flex flex-row flex-wrap sm:flex-nowrap gap-3 items-center justify-between shadow-lg">
+    <div className="w-full bg-zinc-950 border border-zinc-800/80 rounded-2xl p-3 flex flex-row flex-wrap sm:flex-nowrap gap-3 items-center justify-between shadow-lg">
       
       {/* Left controls: Settings & Audio Toggle */}
       <div className="flex gap-1.5 items-center justify-start shrink-0">
         <button
           onClick={handleConfigureClick}
-          className="flex items-center gap-1 p-2 sm:px-3 sm:py-2 text-xs font-semibold text-gray-400 hover:text-white bg-black/30 border border-carbon-border/50 hover:bg-carbon-light rounded-xl transition-all"
+          className="flex items-center gap-1 p-2 sm:px-3 sm:py-2 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900/40 border border-zinc-800/50 hover:bg-zinc-900 rounded-xl transition-all"
           title="Home"
         >
           <Home className="w-4 h-4" />
@@ -62,10 +62,10 @@ export default function Controls({
 
         <button
           onClick={onToggleVoice}
-          className={`flex items-center gap-1 p-2 sm:px-3 sm:py-2 text-xs font-semibold rounded-xl border transition-all ${
+          className={`flex items-center gap-1 p-2 sm:px-3 sm:py-2 text-xs font-bold rounded-xl border transition-all ${
             voiceEnabled 
-              ? 'bg-zinc-800 border-zinc-500 text-white hover:bg-zinc-700' 
-              : 'bg-black/30 border-carbon-border/50 text-gray-500 hover:text-gray-300'
+              ? 'bg-zinc-800 border-zinc-700 text-white hover:bg-zinc-700' 
+              : 'bg-zinc-900/40 border-zinc-800/50 text-gray-500 hover:text-gray-300'
           }`}
           title={voiceEnabled ? "Matikan suara" : "Aktifkan suara"}
         >
@@ -75,17 +75,17 @@ export default function Controls({
       </div>
 
       {/* Center controls: Timer & Play/Pause */}
-      <div className="flex items-center gap-2.5 xs:gap-4 bg-black/40 border border-carbon-border/50 rounded-2xl px-3.5 py-1.5 sm:px-6 sm:py-2">
+      <div className="flex items-center gap-2.5 xs:gap-4 bg-zinc-900/40 border border-zinc-800/50 rounded-2xl px-3.5 py-1.5 sm:px-6 sm:py-2">
         <div className="font-digital text-base sm:text-xl text-white font-bold tracking-widest min-w-[55px] sm:min-w-[70px] text-center">
           {formatTime(timer)}
         </div>
-        <div className="h-4 w-px bg-carbon-border"></div>
+        <div className="h-4 w-px bg-zinc-800/60"></div>
         <button
           onClick={handleTimerClick}
           className={`p-2 rounded-xl transition-all active:scale-95 ${
             isTimerRunning
-              ? 'text-accentRed bg-accentRed/10 hover:bg-accentRed/20'
-              : 'text-court bg-court/10 hover:bg-court/20'
+              ? 'text-red-500 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20'
+              : 'text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20'
           }`}
           title={isTimerRunning ? "Pause Timer" : "Mulai Timer"}
         >
@@ -99,10 +99,10 @@ export default function Controls({
         <button
           onClick={onUndo}
           disabled={!canUndo}
-          className={`flex items-center justify-center gap-1 p-2 sm:px-4 sm:py-2.5 text-xs font-semibold rounded-xl border transition-all ${
+          className={`flex items-center justify-center gap-1 p-2 sm:px-4 sm:py-2.5 text-xs font-bold rounded-xl border transition-all ${
             canUndo
-              ? 'bg-black/30 border-carbon-border text-white hover:bg-carbon-light active:scale-95'
-              : 'bg-black/10 border-carbon-border/30 text-gray-600 cursor-not-allowed'
+              ? 'bg-zinc-900/40 border-zinc-800 text-white hover:bg-zinc-900 active:scale-95'
+              : 'bg-zinc-950/20 border-zinc-800/30 text-zinc-700 cursor-not-allowed'
           }`}
           title="Undo (Kembali)"
         >
@@ -114,10 +114,10 @@ export default function Controls({
         <button
           onClick={onRedo}
           disabled={!canRedo}
-          className={`flex items-center justify-center gap-1 p-2 sm:px-4 sm:py-2.5 text-xs font-semibold rounded-xl border transition-all ${
+          className={`flex items-center justify-center gap-1 p-2 sm:px-4 sm:py-2.5 text-xs font-bold rounded-xl border transition-all ${
             canRedo
-              ? 'bg-black/30 border-carbon-border text-white hover:bg-carbon-light active:scale-95'
-              : 'bg-black/10 border-carbon-border/30 text-gray-600 cursor-not-allowed'
+              ? 'bg-zinc-900/40 border-zinc-800 text-white hover:bg-zinc-900 active:scale-95'
+              : 'bg-zinc-950/20 border-zinc-800/30 text-zinc-700 cursor-not-allowed'
           }`}
           title="Redo (Maju)"
         >
@@ -128,7 +128,7 @@ export default function Controls({
         {/* Swap court sides */}
         <button
           onClick={onSwapSides}
-          className="flex items-center justify-center gap-1 p-2 sm:px-4 sm:py-2.5 text-xs font-semibold text-white bg-black/30 border border-carbon-border hover:bg-carbon-light rounded-xl transition-all active:scale-95"
+          className="flex items-center justify-center gap-1 p-2 sm:px-4 sm:py-2.5 text-xs font-bold text-white bg-zinc-900/40 border border-zinc-800 hover:bg-zinc-900 rounded-xl transition-all active:scale-95"
           title="Tukar Sisi Lapangan"
         >
           <ArrowLeftRight className="w-4 h-4" />
@@ -138,7 +138,7 @@ export default function Controls({
         {/* Reset match */}
         <button
           onClick={handleResetClick}
-          className="p-2 sm:p-2.5 text-xs font-semibold text-accentRed bg-accentRed/10 border border-accentRed/20 hover:bg-accentRed/20 rounded-xl transition-all active:scale-95"
+          className="p-2 sm:p-2.5 text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 rounded-xl transition-all active:scale-95"
           title="Reset Match"
         >
           <RotateCcw className="w-4 h-4" />

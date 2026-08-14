@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Play, User, Users, Volume2, VolumeX, Sparkles } from 'lucide-react';
+import { Play, User, Users, Volume2, VolumeX, Sparkles, Clock } from 'lucide-react';
 import { playSound } from '../utils/audio';
+import MatchHistory from './MatchHistory';
 
 export default function MatchSetup({ onStart }) {
+  const [showHistory, setShowHistory] = useState(false);
   const [matchType, setMatchType] = useState('singles'); // singles | doubles
   const [playerA1, setPlayerA1] = useState('Pemain A1');
   const [playerA2, setPlayerA2] = useState('Pemain A2');
@@ -57,28 +59,48 @@ export default function MatchSetup({ onStart }) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 py-8">
-      {/* Title Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
-          DSCORE
-        </h1>
-        <p className="text-gray-400 mt-2 text-sm sm:text-base">
-          Papan skor badminton
-        </p>
+    <div className="w-full max-w-2xl mx-auto px-4 py-8 relative">
+      {/* Floating History Button */}
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+        <button
+          type="button"
+          onClick={() => {
+            playSound('click');
+            setShowHistory(true);
+          }}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900/40 border border-zinc-800/80 hover:bg-zinc-900 rounded-xl transition-all"
+        >
+          <Clock className="w-3.5 h-3.5" />
+          <span>Riwayat</span>
+        </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+      {/* Title Header */}
+      <div className="text-center mb-10 select-none">
+        <h1 className="text-3xl sm:text-4xl font-black tracking-[0.08em] text-white flex items-center justify-center">
+          <span className="bg-white text-zinc-950 px-2.5 py-0.5 rounded-md mr-1.5 font-black inline-block transform -skew-x-6">D</span>
+          <span>SCORE</span>
+        </h1>
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <span className="h-px w-6 bg-zinc-800"></span>
+          <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500">
+            Badminton Scoreboard
+          </p>
+          <span className="h-px w-6 bg-zinc-800"></span>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="bg-zinc-950/85 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl backdrop-blur-md">
         {/* Match Type Selection */}
         <div>
-          <label className="block text-gray-400 text-xs font-semibold uppercase tracking-wider mb-3">Kategori Pertandingan</label>
+          <label className="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">Kategori Pertandingan</label>
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
               onClick={() => handleTypeChange('singles')}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-semibold transition-all duration-200 ${matchType === 'singles'
-                ? 'bg-zinc-800 border-zinc-500 text-white font-bold'
-                : 'bg-carbon-light text-gray-300 border-carbon-border hover:bg-carbon-border'
+              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-bold transition-all duration-200 ${matchType === 'singles'
+                ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
+                : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:text-white hover:bg-zinc-900'
                 }`}
             >
               <User className="w-4 h-4" />
@@ -87,9 +109,9 @@ export default function MatchSetup({ onStart }) {
             <button
               type="button"
               onClick={() => handleTypeChange('doubles')}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-semibold transition-all duration-200 ${matchType === 'doubles'
-                ? 'bg-zinc-800 border-zinc-500 text-white font-bold'
-                : 'bg-carbon-light text-gray-300 border-carbon-border hover:bg-carbon-border'
+              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-bold transition-all duration-200 ${matchType === 'doubles'
+                ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
+                : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:text-white hover:bg-zinc-900'
                 }`}
             >
               <Users className="w-4 h-4" />
@@ -102,8 +124,8 @@ export default function MatchSetup({ onStart }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Team A / Left Side */}
           <div className="space-y-3">
-            <div className="h-0.5 bg-gradient-to-r from-gray-400 to-transparent mb-2 rounded"></div>
-            <label className="block text-white text-xs font-bold uppercase tracking-wider">Tim A (Kiri Layar)</label>
+            <div className="h-0.5 bg-red-500/20 border-b border-red-500/30 rounded mb-2"></div>
+            <label className="block text-red-400 text-xs font-bold uppercase tracking-wider">Tim A (Kiri)</label>
             <div className="space-y-2">
               <div>
                 <input
@@ -111,7 +133,7 @@ export default function MatchSetup({ onStart }) {
                   value={playerA1}
                   onChange={(e) => setPlayerA1(e.target.value)}
                   placeholder="Nama Pemain 1"
-                  className="w-full bg-black/40 border border-carbon-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-white transition-colors"
+                  className="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
                   required
                 />
               </div>
@@ -122,7 +144,7 @@ export default function MatchSetup({ onStart }) {
                     value={playerA2}
                     onChange={(e) => setPlayerA2(e.target.value)}
                     placeholder="Nama Pemain 2"
-                    className="w-full bg-black/40 border border-carbon-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-white transition-colors"
+                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
                     required
                   />
                 </div>
@@ -132,8 +154,8 @@ export default function MatchSetup({ onStart }) {
 
           {/* Team B / Right Side */}
           <div className="space-y-3">
-            <div className="h-0.5 bg-gradient-to-r from-gray-400 to-transparent mb-2 rounded"></div>
-            <label className="block text-white text-xs font-bold uppercase tracking-wider">Tim B (Kanan Layar)</label>
+            <div className="h-0.5 bg-emerald-500/20 border-b border-emerald-500/30 rounded mb-2"></div>
+            <label className="block text-emerald-400 text-xs font-bold uppercase tracking-wider">Tim B (Kanan)</label>
             <div className="space-y-2">
               <div>
                 <input
@@ -141,7 +163,7 @@ export default function MatchSetup({ onStart }) {
                   value={playerB1}
                   onChange={(e) => setPlayerB1(e.target.value)}
                   placeholder="Nama Pemain 1"
-                  className="w-full bg-black/40 border border-carbon-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-white transition-colors"
+                  className="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
                   required
                 />
               </div>
@@ -152,7 +174,7 @@ export default function MatchSetup({ onStart }) {
                     value={playerB2}
                     onChange={(e) => setPlayerB2(e.target.value)}
                     placeholder="Nama Pemain 2"
-                    className="w-full bg-black/40 border border-carbon-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-white transition-colors"
+                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
                     required
                   />
                 </div>
@@ -162,19 +184,19 @@ export default function MatchSetup({ onStart }) {
         </div>
 
         {/* Game Rules Config */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-carbon-border/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-zinc-800/80">
           {/* Target Score */}
           <div>
-            <label className="block text-gray-400 text-xs font-semibold uppercase tracking-wider mb-3">Target Poin Game</label>
+            <label className="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">Target Poin Game</label>
             <div className="flex gap-2">
               {[11, 15, 21].map((pts) => (
                 <button
                   key={pts}
                   type="button"
                   onClick={() => handlePointsChange(pts)}
-                  className={`flex-1 py-2 px-3 rounded-lg border text-sm font-semibold transition-all ${targetPoints === pts
-                    ? 'bg-zinc-800 border-zinc-500 text-white font-bold'
-                    : 'bg-black/30 text-gray-400 border-carbon-border hover:bg-carbon-light'
+                  className={`flex-1 py-2.5 px-3 rounded-xl border text-sm font-bold transition-all ${targetPoints === pts
+                    ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
+                    : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:bg-zinc-900 hover:text-white'
                     }`}
                 >
                   {pts} Poin
@@ -185,14 +207,14 @@ export default function MatchSetup({ onStart }) {
 
           {/* First Server selection */}
           <div>
-            <label className="block text-gray-400 text-xs font-semibold uppercase tracking-wider mb-3">Servis Pertama</label>
+            <label className="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">Servis Pertama</label>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => handleServerChange('A')}
-                className={`py-2 px-3 rounded-lg border text-sm font-semibold transition-all ${firstServer === 'A'
-                  ? 'bg-zinc-800 border-zinc-500 text-white font-bold'
-                  : 'bg-black/30 text-gray-400 border-carbon-border hover:bg-carbon-light'
+                className={`py-2.5 px-3 rounded-xl border text-sm font-bold transition-all ${firstServer === 'A'
+                  ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
+                  : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:bg-zinc-900 hover:text-white'
                   }`}
               >
                 Tim A
@@ -200,9 +222,9 @@ export default function MatchSetup({ onStart }) {
               <button
                 type="button"
                 onClick={() => handleServerChange('B')}
-                className={`py-2 px-3 rounded-lg border text-sm font-semibold transition-all ${firstServer === 'B'
-                  ? 'bg-zinc-800 border-zinc-500 text-white font-bold'
-                  : 'bg-black/30 text-gray-400 border-carbon-border hover:bg-carbon-light'
+                className={`py-2.5 px-3 rounded-xl border text-sm font-bold transition-all ${firstServer === 'B'
+                  ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
+                  : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:bg-zinc-900 hover:text-white'
                   }`}
               >
                 Tim B
@@ -212,15 +234,15 @@ export default function MatchSetup({ onStart }) {
         </div>
 
         {/* Voice Announcer Settings */}
-        <div className="p-4 bg-black/30 border border-carbon-border/50 rounded-xl space-y-4">
+        <div className="p-4 bg-zinc-900/20 border border-zinc-800/80 rounded-2xl space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg ${voiceEnabled ? 'bg-white/20 text-white' : 'bg-carbon text-gray-500'}`}>
+              <div className={`p-2.5 rounded-xl ${voiceEnabled ? 'bg-white/10 text-white' : 'bg-zinc-950 text-zinc-500'}`}>
                 {voiceEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white">Suara Komentator (Ref)</h4>
-                <p className="text-xs text-gray-400">Bacakan skor saat poin bertambah.</p>
+                <h4 className="text-sm font-bold text-white uppercase tracking-wide">Suara Komentator (Ref)</h4>
+                <p className="text-xs text-gray-400 mt-0.5">Bacakan skor saat poin bertambah.</p>
               </div>
             </div>
 
@@ -228,7 +250,7 @@ export default function MatchSetup({ onStart }) {
             <button
               type="button"
               onClick={handleVoiceToggle}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${voiceEnabled ? 'bg-white' : 'bg-carbon-border'
+              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${voiceEnabled ? 'bg-white' : 'bg-zinc-800'
                 }`}
             >
               <div
@@ -239,12 +261,12 @@ export default function MatchSetup({ onStart }) {
           </div>
 
           {voiceEnabled && (
-            <div className="flex gap-2 items-center justify-end pl-12 border-t border-carbon-border/30 pt-3">
+            <div className="flex gap-2 items-center justify-end pl-12 border-t border-zinc-800/40 pt-3">
               <span className="text-xs text-gray-400">Bahasa suara:</span>
               <button
                 type="button"
                 onClick={() => handleVoiceLangChange('id')}
-                className={`text-xs px-2.5 py-1 rounded transition-colors ${voiceLanguage === 'id' ? 'bg-zinc-800 border border-zinc-700 text-white font-bold' : 'text-gray-400 hover:text-white'
+                className={`text-xs px-2.5 py-1 rounded-lg transition-all ${voiceLanguage === 'id' ? 'bg-zinc-800 border border-zinc-700 text-white font-bold' : 'text-gray-400 hover:text-white'
                   }`}
               >
                 Indonesia
@@ -252,7 +274,7 @@ export default function MatchSetup({ onStart }) {
               <button
                 type="button"
                 onClick={() => handleVoiceLangChange('en')}
-                className={`text-xs px-2.5 py-1 rounded transition-colors ${voiceLanguage === 'en' ? 'bg-zinc-800 border border-zinc-700 text-white font-bold' : 'text-gray-400 hover:text-white'
+                className={`text-xs px-2.5 py-1 rounded-lg transition-all ${voiceLanguage === 'en' ? 'bg-zinc-800 border border-zinc-700 text-white font-bold' : 'text-gray-400 hover:text-white'
                   }`}
               >
                 English
@@ -264,12 +286,23 @@ export default function MatchSetup({ onStart }) {
         {/* Start Button */}
         <button
           type="submit"
-          className="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-base transition-all duration-300 border border-zinc-700 active:scale-[0.98]"
+          className="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-base transition-all duration-200 active:scale-[0.98] shadow-lg shadow-red-500/10"
         >
-          <Play className="w-5 h-5 fill-current text-white" />
-          Mulai Pertandingan
+          <Play className="w-4 h-4 fill-current text-white" />
+          START MATCH
         </button>
       </form>
+
+      {showHistory && (
+        <MatchHistory
+          onClose={() => setShowHistory(false)}
+          onSelectMatch={(matchId) => {
+            setShowHistory(false);
+            window.history.pushState(null, '', `?match=${matchId}`);
+            window.location.reload();
+          }}
+        />
+      )}
     </div>
   );
 }

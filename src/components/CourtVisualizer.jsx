@@ -91,16 +91,16 @@ export default function CourtVisualizer({
           <div className="flex gap-4">
             <button
               onClick={() => onSwapPositions('A')}
-              className="text-[10px] flex items-center gap-1.5 px-2.5 py-1 bg-carbon hover:bg-carbon-light border border-carbon-border text-gray-300 rounded-lg transition-colors"
+              className="text-[10px] flex items-center gap-1.5 px-2.5 py-1 bg-zinc-900/40 hover:bg-zinc-900 border border-zinc-800 text-gray-300 rounded-lg transition-colors"
             >
-              <ArrowLeftRight className="w-3 h-3 text-court" />
+              <ArrowLeftRight className="w-3 h-3 text-red-500" />
               Tukar Posisi A
             </button>
             <button
               onClick={() => onSwapPositions('B')}
-              className="text-[10px] flex items-center gap-1.5 px-2.5 py-1 bg-carbon hover:bg-carbon-light border border-carbon-border text-gray-300 rounded-lg transition-colors"
+              className="text-[10px] flex items-center gap-1.5 px-2.5 py-1 bg-zinc-900/40 hover:bg-zinc-900 border border-zinc-800 text-gray-300 rounded-lg transition-colors"
             >
-              <ArrowLeftRight className="w-3 h-3 text-volt" />
+              <ArrowLeftRight className="w-3 h-3 text-emerald-500" />
               Tukar Posisi B
             </button>
           </div>
@@ -108,7 +108,7 @@ export default function CourtVisualizer({
       </div>
 
       {/* Realistic Vector Court Layout Container */}
-      <div className="relative w-full aspect-[2.1/1] rounded-2xl overflow-hidden shadow-2xl border border-carbon-border bg-[#0B0D13]">
+      <div className="relative w-full aspect-[2.1/1] rounded-2xl overflow-hidden shadow-2xl border border-zinc-800/80 bg-[#050506]">
         {/* Background Court Image */}
         <div
           className="absolute inset-0 w-full h-full"

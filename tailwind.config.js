@@ -35,6 +35,7 @@ export default {
       fontFamily: {
         sans: ['Outfit', 'sans-serif'],
         mono: ['Space Mono', 'monospace'],
+        pressStart: ['"Press Start 2P"', 'monospace'],
       },
       animation: {
         'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { announceScore, playSound } from '../utils/audio';
+import { supabase } from '../utils/supabase';
 
 // Initial state creator
 const createInitialState = (config) => {
@@ -34,7 +35,7 @@ const createInitialState = (config) => {
   };
 };
 
-export const useBadminton = (config) => {
+export const useBadminton = (config, matchId = null, isViewer = false) => {
   const [matchConfig, setMatchConfig] = useState(config);
   const [state, setState] = useState(() => createInitialState(config));
   const [history, setHistory] = useState([]);
@@ -42,8 +43,9 @@ export const useBadminton = (config) => {
   const [timer, setTimer] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
-  // Setup match timer
+  // Setup match timer (hanya untuk wasit)
   useEffect(() => {
+    if (isViewer) return;
     let interval = null;
     if (isTimerRunning && !state.matchEnded) {
       interval = setInterval(() => {
@@ -53,7 +55,76 @@ export const useBadminton = (config) => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isTimerRunning, state.matchEnded]);
+  }, [isTimerRunning, state.matchEnded, isViewer]);
+
+  // 1. Sinkronisasi status wasit ke database Supabase (debounce 400ms)
+  useEffect(() => {
+    if (!matchId || isViewer || !supabase) return;
+
+    const syncToDatabase = async () => {
+      try {
+        await supabase
+          .from('matches')
+          .update({
+            state: state,
+            timer: timer,
+            is_timer_running: isTimerRunning,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', matchId);
+      } catch (err) {
+        console.error('Gagal melakukan sinkronisasi status ke Supabase:', err);
+      }
+    };
+
+    const timeout = setTimeout(syncToDatabase, 400);
+    return () => clearTimeout(timeout);
+  }, [state, timer, isTimerRunning, matchId, isViewer]);
+
+  // 2. Berlangganan (subscribe) real-time skor untuk mode penonton (Viewer)
+  useEffect(() => {
+    if (!matchId || !isViewer || !supabase) return;
+
+    const fetchInitialState = async () => {
+      try {
+        const { data } = await supabase
+          .from('matches')
+          .select('*')
+          .eq('id', matchId)
+          .single();
+
+        if (data) {
+          if (data.state) setState(data.state);
+          if (data.timer !== undefined) setTimer(data.timer);
+          if (data.is_timer_running !== undefined) setIsTimerRunning(data.is_timer_running);
+          if (data.config) setMatchConfig(data.config);
+        }
+      } catch (err) {
+        console.error('Gagal mengambil data awal pertandingan dari Supabase:', err);
+      }
+    };
+
+    fetchInitialState();
+
+    const channel = supabase
+      .channel(`match:${matchId}`)
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'matches', filter: `id=eq.${matchId}` },
+        (payload) => {
+          const { state: newState, timer: newTimer, is_timer_running: newIsTimerRunning, config: newConfig } = payload.new;
+          if (newState) setState(newState);
+          if (newTimer !== undefined) setTimer(newTimer);
+          if (newIsTimerRunning !== undefined) setIsTimerRunning(newIsTimerRunning);
+          if (newConfig) setMatchConfig(newConfig);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [matchId, isViewer]);
 
   // Trigger voice announcement when score changes
   const triggerVoiceAnnouncement = (newState, isGameOverLocal) => {
@@ -147,7 +218,7 @@ export const useBadminton = (config) => {
 
   // Process score increment
   const addPoint = (team) => {
-    if (state.matchEnded) return;
+    if (isViewer || state.matchEnded) return;
 
     // Play crisp point chime
     playSound('point');
@@ -306,7 +377,7 @@ export const useBadminton = (config) => {
   };
 
   const undo = () => {
-    if (history.length === 0) return;
+    if (isViewer || history.length === 0) return;
     playSound('undo');
     
     // Save current to redo
@@ -320,7 +391,7 @@ export const useBadminton = (config) => {
   };
 
   const redo = () => {
-    if (redoStack.length === 0) return;
+    if (isViewer || redoStack.length === 0) return;
     playSound('click');
 
     const next = redoStack[redoStack.length - 1];
@@ -333,7 +404,7 @@ export const useBadminton = (config) => {
 
   // Manual point correction (decrease score)
   const decrementScore = (team) => {
-    if (state.matchEnded) return;
+    if (isViewer || state.matchEnded) return;
 
     if (team === 'A' && state.scoreA === 0) return;
     if (team === 'B' && state.scoreB === 0) return;
@@ -354,6 +425,7 @@ export const useBadminton = (config) => {
 
   // Swap sides manually
   const toggleSides = () => {
+    if (isViewer) return;
     playSound('click');
     setState((prev) => ({
       ...prev,
@@ -363,6 +435,7 @@ export const useBadminton = (config) => {
 
   // Reset current game ended flag to resume play
   const dismissGameEnded = () => {
+    if (isViewer) return;
     setState((prev) => ({
       ...prev,
       gameEnded: false,
@@ -371,6 +444,7 @@ export const useBadminton = (config) => {
 
   // Restart match from scratch
   const restartMatch = () => {
+    if (isViewer) return;
     playSound('warning');
     setState(createInitialState(matchConfig));
     setHistory([]);
@@ -381,6 +455,7 @@ export const useBadminton = (config) => {
 
   // Re-configure match (back to setup)
   const changeSettings = (newConfig) => {
+    if (isViewer) return;
     playSound('click');
     setMatchConfig(newConfig);
     setState(createInitialState(newConfig));
@@ -392,6 +467,7 @@ export const useBadminton = (config) => {
 
   // Switch server (e.g. manual serve correction before point begins)
   const setServerManually = (team) => {
+    if (isViewer) return;
     playSound('click');
     setState((prev) => ({
       ...prev,
@@ -401,6 +477,7 @@ export const useBadminton = (config) => {
 
   // Manual swap player positions (doubles correction)
   const swapPositionsManually = (team) => {
+    if (isViewer) return;
     playSound('click');
     setState((prev) => {
       const nextPositions = { ...prev.positions };
