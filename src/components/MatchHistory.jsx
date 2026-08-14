@@ -149,7 +149,7 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                 return (
                   <div 
                     key={match.id} 
-                    className="border-b border-zinc-900/50 py-4 last:border-0 hover:bg-zinc-900/20 transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-2"
+                    className="border-b border-zinc-900/50 py-4 last:border-0 hover:bg-zinc-900/20 transition-all flex items-center justify-between gap-3 px-1 sm:px-2"
                   >
                     <div className="space-y-1.5 flex-1 min-w-0">
                       {/* Meta Info */}
@@ -180,7 +180,7 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                       {/* Set scores recap */}
                       {gameHistory.length > 0 && (
                         <div className="flex flex-wrap gap-2 pt-2">
-                          <span className="text-[10px] text-gray-500 font-mono">
+                          <span className="text-[9px] sm:text-[10px] text-gray-500 font-mono">
                             {gameHistory.map((g, idx) => `Set ${idx + 1}: ${g.scoreA}-${g.scoreB}`).join(', ')}
                           </span>
                         </div>
@@ -188,16 +188,16 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-col items-end justify-center self-stretch sm:self-auto shrink-0 pt-2 sm:pt-0 gap-3">
+                    <div className="flex flex-col items-end justify-center shrink-0 gap-3 ml-2">
                       <button
                         onClick={() => handleMatchClick(match.id)}
-                        className="text-xs font-bold text-[#FFF9CA] hover:text-[#FFF5B2] transition-colors"
+                        className="text-[10px] sm:text-[11px] font-bold text-[#FFF9CA] hover:text-[#FFF5B2] transition-colors uppercase tracking-wider bg-zinc-900/50 px-3 py-1.5 rounded-lg border border-zinc-800"
                       >
                         Lihat Detail
                       </button>
                       <button
                         onClick={() => handleDeleteMatch(match.id)}
-                        className="text-[10px] font-bold text-red-500/80 hover:text-red-400 transition-colors uppercase tracking-wider"
+                        className="text-[9px] sm:text-[10px] font-bold text-red-500/80 hover:text-red-400 transition-colors uppercase tracking-wider px-3"
                       >
                         Hapus
                       </button>
