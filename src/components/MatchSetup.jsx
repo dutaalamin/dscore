@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, User, Users, Volume2, VolumeX, Sparkles, Clock } from 'lucide-react';
+import { Volume2, VolumeX, Clock } from 'lucide-react';
 import { playSound } from '../utils/audio';
 import MatchHistory from './MatchHistory';
 
@@ -90,50 +90,51 @@ export default function MatchSetup({ onStart }) {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-zinc-950/85 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl backdrop-blur-md">
+      <form onSubmit={handleSubmit} className="bg-zinc-950 border border-zinc-900 rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl">
         {/* Match Type Selection */}
-        <div>
-          <label className="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">Kategori Pertandingan</label>
-          <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-2">
+          <label className="block text-gray-500 text-[10px] font-bold uppercase tracking-widest font-sans">Kategori Pertandingan</label>
+          <div className="flex gap-4 items-center py-1">
             <button
               type="button"
               onClick={() => handleTypeChange('singles')}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-bold transition-all duration-200 ${matchType === 'singles'
-                ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
-                : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:text-white hover:bg-zinc-900'
-                }`}
+              className={`text-xs font-black uppercase tracking-widest transition-all ${
+                matchType === 'singles'
+                  ? 'text-white'
+                  : 'text-zinc-600 hover:text-zinc-400'
+              }`}
             >
-              <User className="w-4 h-4" />
-              Tunggal (Singles)
+              Tunggal
             </button>
+            <span className="text-zinc-850">/</span>
             <button
               type="button"
               onClick={() => handleTypeChange('doubles')}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm font-bold transition-all duration-200 ${matchType === 'doubles'
-                ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
-                : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:text-white hover:bg-zinc-900'
-                }`}
+              className={`text-xs font-black uppercase tracking-widest transition-all ${
+                matchType === 'doubles'
+                  ? 'text-white'
+                  : 'text-zinc-600 hover:text-zinc-400'
+              }`}
             >
-              <Users className="w-4 h-4" />
-              Ganda (Doubles)
+              Ganda
             </button>
           </div>
         </div>
 
         {/* Player Name Fields */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
           {/* Team A / Left Side */}
-          <div className="space-y-3">
-            <div className="h-0.5 bg-red-500/20 border-b border-red-500/30 rounded mb-2"></div>
-            <label className="block text-red-400 text-xs font-bold uppercase tracking-wider">Tim A (Kiri)</label>
-            <div className="space-y-2">
+          <div className="space-y-4">
+            <div className="h-px bg-zinc-900 w-full mb-1"></div>
+            <label className="block text-[#FFF9CA] text-[10px] font-bold uppercase tracking-widest">Tim A (Kiri)</label>
+            <div className="space-y-3">
               <div>
                 <input
                   type="text"
                   value={playerA1}
                   onChange={(e) => setPlayerA1(e.target.value)}
                   placeholder="Nama Pemain 1"
-                  className="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+                  className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#FFF9CA] transition-all font-semibold"
                   required
                 />
               </div>
@@ -144,7 +145,7 @@ export default function MatchSetup({ onStart }) {
                     value={playerA2}
                     onChange={(e) => setPlayerA2(e.target.value)}
                     placeholder="Nama Pemain 2"
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+                    className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#FFF9CA] transition-all font-semibold"
                     required
                   />
                 </div>
@@ -153,17 +154,17 @@ export default function MatchSetup({ onStart }) {
           </div>
 
           {/* Team B / Right Side */}
-          <div className="space-y-3">
-            <div className="h-0.5 bg-emerald-500/20 border-b border-emerald-500/30 rounded mb-2"></div>
-            <label className="block text-emerald-400 text-xs font-bold uppercase tracking-wider">Tim B (Kanan)</label>
-            <div className="space-y-2">
+          <div className="space-y-4">
+            <div className="h-px bg-zinc-900 w-full mb-1"></div>
+            <label className="block text-[#E3FDFD] text-[10px] font-bold uppercase tracking-widest">Tim B (Kanan)</label>
+            <div className="space-y-3">
               <div>
                 <input
                   type="text"
                   value={playerB1}
                   onChange={(e) => setPlayerB1(e.target.value)}
                   placeholder="Nama Pemain 1"
-                  className="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+                  className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#E3FDFD] transition-all font-semibold"
                   required
                 />
               </div>
@@ -174,7 +175,7 @@ export default function MatchSetup({ onStart }) {
                     value={playerB2}
                     onChange={(e) => setPlayerB2(e.target.value)}
                     placeholder="Nama Pemain 2"
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
+                    className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#E3FDFD] transition-all font-semibold"
                     required
                   />
                 </div>
@@ -184,48 +185,55 @@ export default function MatchSetup({ onStart }) {
         </div>
 
         {/* Game Rules Config */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-zinc-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-zinc-900">
           {/* Target Score */}
-          <div>
-            <label className="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">Target Poin Game</label>
-            <div className="flex gap-2">
-              {[11, 15, 21].map((pts) => (
-                <button
-                  key={pts}
-                  type="button"
-                  onClick={() => handlePointsChange(pts)}
-                  className={`flex-1 py-2.5 px-3 rounded-xl border text-sm font-bold transition-all ${targetPoints === pts
-                    ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
-                    : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:bg-zinc-900 hover:text-white'
+          <div className="space-y-2">
+            <label className="block text-gray-500 text-[10px] font-bold uppercase tracking-widest">Target Poin Game</label>
+            <div className="flex gap-4 items-center py-1">
+              {[11, 15, 21].map((pts, i) => (
+                <React.Fragment key={pts}>
+                  {i > 0 && <span className="text-zinc-850">•</span>}
+                  <button
+                    key={pts}
+                    type="button"
+                    onClick={() => handlePointsChange(pts)}
+                    className={`text-xs font-black uppercase tracking-widest transition-all ${
+                      targetPoints === pts
+                        ? 'text-white'
+                        : 'text-zinc-600 hover:text-zinc-400'
                     }`}
-                >
-                  {pts} Poin
-                </button>
+                  >
+                    {pts} Poin
+                  </button>
+                </React.Fragment>
               ))}
             </div>
           </div>
 
           {/* First Server selection */}
-          <div>
-            <label className="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">Servis Pertama</label>
-            <div className="grid grid-cols-2 gap-2">
+          <div className="space-y-2">
+            <label className="block text-gray-500 text-[10px] font-bold uppercase tracking-widest">Servis Pertama</label>
+            <div className="flex gap-4 items-center py-1">
               <button
                 type="button"
                 onClick={() => handleServerChange('A')}
-                className={`py-2.5 px-3 rounded-xl border text-sm font-bold transition-all ${firstServer === 'A'
-                  ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
-                  : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:bg-zinc-900 hover:text-white'
-                  }`}
+                className={`text-xs font-black uppercase tracking-widest transition-all ${
+                  firstServer === 'A'
+                    ? 'text-[#FFF9CA]'
+                    : 'text-zinc-600 hover:text-zinc-400'
+                }`}
               >
                 Tim A
               </button>
+              <span className="text-zinc-850">/</span>
               <button
                 type="button"
                 onClick={() => handleServerChange('B')}
-                className={`py-2.5 px-3 rounded-xl border text-sm font-bold transition-all ${firstServer === 'B'
-                  ? 'bg-zinc-800 border-zinc-700 text-white shadow-md'
-                  : 'bg-zinc-900/30 border-zinc-900 text-gray-400 hover:bg-zinc-900 hover:text-white'
-                  }`}
+                className={`text-xs font-black uppercase tracking-widest transition-all ${
+                  firstServer === 'B'
+                    ? 'text-[#E3FDFD]'
+                    : 'text-zinc-600 hover:text-zinc-400'
+                }`}
               >
                 Tim B
               </button>
@@ -234,10 +242,10 @@ export default function MatchSetup({ onStart }) {
         </div>
 
         {/* Voice Announcer Settings */}
-        <div className="p-4 bg-zinc-900/20 border border-zinc-800/80 rounded-2xl space-y-4">
+        <div className="pt-6 border-t border-zinc-900 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={`p-2.5 rounded-xl ${voiceEnabled ? 'bg-white/10 text-white' : 'bg-zinc-950 text-zinc-500'}`}>
+              <div className={voiceEnabled ? 'text-[#FFF9CA]' : 'text-zinc-500'}>
                 {voiceEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
               </div>
               <div>
@@ -250,23 +258,23 @@ export default function MatchSetup({ onStart }) {
             <button
               type="button"
               onClick={handleVoiceToggle}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${voiceEnabled ? 'bg-white' : 'bg-zinc-800'
+              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${voiceEnabled ? 'bg-[#FFF9CA]' : 'bg-zinc-800'
                 }`}
             >
               <div
-                className={`w-4 h-4 rounded-full bg-black transition-transform duration-200 ${voiceEnabled ? 'translate-x-6' : 'translate-x-0'
+                className={`w-4 h-4 rounded-full bg-zinc-950 transition-transform duration-200 ${voiceEnabled ? 'translate-x-6' : 'translate-x-0'
                   }`}
               />
             </button>
           </div>
 
           {voiceEnabled && (
-            <div className="flex gap-2 items-center justify-end pl-12 border-t border-zinc-800/40 pt-3">
-              <span className="text-xs text-gray-400">Bahasa suara:</span>
+            <div className="flex gap-2 items-center justify-end pl-8 border-t border-zinc-900 pt-3">
+              <span className="text-xs text-gray-500">Bahasa suara:</span>
               <button
                 type="button"
                 onClick={() => handleVoiceLangChange('id')}
-                className={`text-xs px-2.5 py-1 rounded-lg transition-all ${voiceLanguage === 'id' ? 'bg-zinc-800 border border-zinc-700 text-white font-bold' : 'text-gray-400 hover:text-white'
+                className={`text-xs px-2.5 py-1 rounded-lg transition-all ${voiceLanguage === 'id' ? 'bg-zinc-800 text-white font-bold' : 'text-gray-400 hover:text-white'
                   }`}
               >
                 Indonesia
@@ -274,7 +282,7 @@ export default function MatchSetup({ onStart }) {
               <button
                 type="button"
                 onClick={() => handleVoiceLangChange('en')}
-                className={`text-xs px-2.5 py-1 rounded-lg transition-all ${voiceLanguage === 'en' ? 'bg-zinc-800 border border-zinc-700 text-white font-bold' : 'text-gray-400 hover:text-white'
+                className={`text-xs px-2.5 py-1 rounded-lg transition-all ${voiceLanguage === 'en' ? 'bg-zinc-800 text-white font-bold' : 'text-gray-400 hover:text-white'
                   }`}
               >
                 English
@@ -286,9 +294,8 @@ export default function MatchSetup({ onStart }) {
         {/* Start Button */}
         <button
           type="submit"
-          className="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-base transition-all duration-200 active:scale-[0.98] shadow-lg shadow-red-500/10"
+          className="w-full py-4 px-6 rounded-xl bg-[#FFF9CA] hover:bg-[#FFF5B2] text-zinc-950 font-black text-base tracking-widest uppercase transition-all duration-200 active:scale-[0.98] shadow-md shadow-[#FFF9CA]/5"
         >
-          <Play className="w-4 h-4 fill-current text-white" />
           START MATCH
         </button>
       </form>

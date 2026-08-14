@@ -135,7 +135,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
         isServing={servingTeam === 'A'}
         isGamePoint={statusA.isGamePoint}
         isMatchPoint={statusA.isMatchPoint}
-        themeColor="red"
+        themeColor="lemon"
         onClick={() => handleScoreClick('A')}
         onDecrement={() => decrementScore('A')}
         disabled={gameEnded || matchEnded || isViewer}
@@ -152,7 +152,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
         isServing={servingTeam === 'B'}
         isGamePoint={statusB.isGamePoint}
         isMatchPoint={statusB.isMatchPoint}
-        themeColor="green"
+        themeColor="ice"
         onClick={() => handleScoreClick('B')}
         onDecrement={() => decrementScore('B')}
         disabled={gameEnded || matchEnded || isViewer}
@@ -166,20 +166,18 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-6 space-y-6">
       
-      {/* Back Button Row */}
+      {/* Back Button — Fixed Top Left */}
       {!isViewer && (
-        <div className="flex justify-start">
-          <button
-            onClick={() => {
-              playSound('click');
-              setShowHomeConfirm(true);
-            }}
-            className="text-zinc-500 hover:text-white text-xs font-bold transition-all"
-            title="Kembali ke halaman utama"
-          >
-            Back
-          </button>
-        </div>
+        <button
+          onClick={() => {
+            playSound('click');
+            setShowHomeConfirm(true);
+          }}
+          className="fixed top-4 left-4 z-40 px-4 py-2 text-xs font-bold text-gray-400 hover:text-white bg-zinc-900/60 border border-zinc-800 hover:bg-zinc-800 rounded-xl transition-all backdrop-blur-sm"
+          title="Kembali ke halaman utama"
+        >
+          Back
+        </button>
       )}
 
       {/* Header Info */}
@@ -197,7 +195,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
         <div className="flex gap-2">
           {gameHistory.map((h, i) => (
             <div key={i} className="text-xs bg-zinc-900/40 border border-zinc-800/50 rounded-lg px-2.5 py-1 text-gray-400 font-sans font-bold">
-              G{i+1}: <span className="text-red-500">{h.scoreA}</span>-<span className="text-emerald-500">{h.scoreB}</span>
+              G{i+1}: <span className="text-[#FFF9CA]">{h.scoreA}</span>-<span className="text-[#E3FDFD]">{h.scoreB}</span>
             </div>
           ))}
         </div>
@@ -263,8 +261,8 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
                 Game ke-{gameHistory.length} telah selesai dimenangkan oleh{' '}
                 <span className={`font-black ${
                   gameHistory[gameHistory.length - 1]?.scoreA > gameHistory[gameHistory.length - 1]?.scoreB
-                    ? 'text-red-500'
-                    : 'text-emerald-500'
+                    ? 'text-[#FFF9CA]'
+                    : 'text-[#E3FDFD]'
                 }`}>
                   {gameHistory[gameHistory.length - 1]?.scoreA > gameHistory[gameHistory.length - 1]?.scoreB
                     ? playerANames.join(' & ')
@@ -278,9 +276,9 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
             <div className="bg-zinc-900/30 rounded-2xl p-4 border border-zinc-800/80">
               <div className="text-[10px] text-gray-500 font-sans font-bold uppercase tracking-wider mb-1">Skor Akhir Game</div>
               <div className="font-digital text-3xl font-black">
-                <span className="text-red-500">{gameHistory[gameHistory.length - 1]?.scoreA}</span>
+                <span className="text-[#FFF9CA]">{gameHistory[gameHistory.length - 1]?.scoreA}</span>
                 <span className="text-gray-500 mx-2">-</span>
-                <span className="text-emerald-500">{gameHistory[gameHistory.length - 1]?.scoreB}</span>
+                <span className="text-[#E3FDFD]">{gameHistory[gameHistory.length - 1]?.scoreB}</span>
               </div>
             </div>
 
@@ -312,7 +310,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
               <p className="text-gray-400 text-sm">
                 Pemenang Pertandingan adalah
               </p>
-              <h4 className={`text-2xl font-black tracking-tight uppercase ${winner === 'A' ? 'text-red-500' : 'text-emerald-500'}`}>
+              <h4 className={`text-2xl font-black tracking-tight uppercase ${winner === 'A' ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
                 {winner === 'A' ? playerANames.join(' & ') : playerBNames.join(' & ')}
               </h4>
             </div>
@@ -325,9 +323,9 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
                   <div key={idx} className="text-center font-sans">
                     <div className="text-[8px] text-gray-500 font-bold mb-0.5">GAME {idx + 1}</div>
                     <div className="text-base font-bold text-white">
-                      <span className={game.scoreA > game.scoreB ? 'text-red-500 font-black text-lg' : 'text-red-500/55'}>{game.scoreA}</span>
+                      <span className={game.scoreA > game.scoreB ? 'text-[#FFF9CA] font-black text-lg' : 'text-[#FFF9CA]/55'}>{game.scoreA}</span>
                       <span className="text-gray-600 mx-1.5">-</span>
-                      <span className={game.scoreB > game.scoreA ? 'text-emerald-500 font-black text-lg' : 'text-emerald-500/55'}>{game.scoreB}</span>
+                      <span className={game.scoreB > game.scoreA ? 'text-[#E3FDFD] font-black text-lg' : 'text-[#E3FDFD]/55'}>{game.scoreB}</span>
                     </div>
                   </div>
                 ))}
@@ -351,7 +349,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
                   playSound('click');
                   onBackToSetup();
                 }}
-                className="py-3.5 px-4 bg-red-600 text-white hover:bg-red-500 font-bold rounded-xl text-sm transition-all shadow-lg active:scale-98 shadow-lg shadow-red-500/10"
+                className="py-3.5 px-4 bg-[#FFF9CA] text-zinc-950 hover:bg-[#FFF5B2] font-black rounded-xl text-sm transition-all shadow-md active:scale-[0.98]"
               >
                 Pertandingan Baru
               </button>

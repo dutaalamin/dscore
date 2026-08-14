@@ -52,8 +52,8 @@ export default function CourtVisualizer({
     let dotColor = '';
 
     if (isServer || isReceiver) {
-      textClass = isTeamA ? 'text-red-400 font-black scale-105' : 'text-emerald-400 font-black scale-105';
-      dotColor = isTeamA ? 'bg-red-500 shadow-[0_0_8px_#ef4444]' : 'bg-emerald-500 shadow-[0_0_8px_#10b981]';
+      textClass = isTeamA ? 'text-[#FFF9CA] font-black scale-105' : 'text-[#E3FDFD] font-black scale-105';
+      dotColor = isTeamA ? 'bg-[#FFF9CA]' : 'bg-[#E3FDFD]';
     }
 
     return (
@@ -68,7 +68,7 @@ export default function CourtVisualizer({
             {/* Active Status Badge */}
             {(isServer || isReceiver) && (
               <div className="flex items-center gap-1 bg-black/50 px-2 py-0.5 rounded-full border border-white/10 shadow-md">
-                <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${dotColor}`} />
+                <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
                 <span className="text-[7px] font-extrabold uppercase tracking-widest text-white/95">
                   {isServer ? 'Servis' : 'Penerima'}
                 </span>
@@ -93,14 +93,14 @@ export default function CourtVisualizer({
               onClick={() => onSwapPositions('A')}
               className="text-[10px] flex items-center gap-1.5 px-2.5 py-1 bg-zinc-900/40 hover:bg-zinc-900 border border-zinc-800 text-gray-300 rounded-lg transition-colors"
             >
-              <ArrowLeftRight className="w-3 h-3 text-red-500" />
+              <ArrowLeftRight className="w-3 h-3 text-[#FFF9CA]" />
               Tukar Posisi A
             </button>
             <button
               onClick={() => onSwapPositions('B')}
               className="text-[10px] flex items-center gap-1.5 px-2.5 py-1 bg-zinc-900/40 hover:bg-zinc-900 border border-zinc-800 text-gray-300 rounded-lg transition-colors"
             >
-              <ArrowLeftRight className="w-3 h-3 text-emerald-500" />
+              <ArrowLeftRight className="w-3 h-3 text-[#E3FDFD]" />
               Tukar Posisi B
             </button>
           </div>

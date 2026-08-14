@@ -144,13 +144,13 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                       {/* Matchup names */}
                       <div className="flex flex-col gap-1">
                         <div className="flex items-center justify-between text-xs sm:text-sm">
-                          <span className={`font-bold truncate ${state.winner === 'A' ? 'text-red-400 font-extrabold' : 'text-red-400/60'}`}>
+                          <span className={`font-bold truncate ${state.winner === 'A' ? 'text-[#FFF9CA] font-extrabold' : 'text-[#FFF9CA]/60'}`}>
                             {teamAName}
                           </span>
                           <span className="text-[10px] text-gray-500 font-mono px-2">Set: {gamesA}</span>
                         </div>
                         <div className="flex items-center justify-between text-xs sm:text-sm">
-                          <span className={`font-bold truncate ${state.winner === 'B' ? 'text-emerald-400 font-extrabold' : 'text-emerald-400/60'}`}>
+                          <span className={`font-bold truncate ${state.winner === 'B' ? 'text-[#E3FDFD] font-extrabold' : 'text-[#E3FDFD]/60'}`}>
                             {teamBName}
                           </span>
                           <span className="text-[10px] text-gray-500 font-mono px-2">Set: {gamesB}</span>
@@ -162,7 +162,7 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                         <div className="flex flex-wrap gap-2 pt-1">
                           {gameHistory.map((g, idx) => (
                             <span key={idx} className="text-[9px] bg-zinc-900/40 border border-zinc-850 text-gray-450 px-2 py-0.5 rounded font-mono">
-                              Set {idx + 1}: <span className={g.scoreA > g.scoreB ? 'text-red-400 font-bold' : 'text-red-400/50'}>{g.scoreA}</span>-<span className={g.scoreB > g.scoreA ? 'text-emerald-400 font-bold' : 'text-emerald-400/50'}>{g.scoreB}</span>
+                              Set {idx + 1}: <span className={g.scoreA > g.scoreB ? 'text-[#FFF9CA] font-bold' : 'text-[#FFF9CA]/55'}>{g.scoreA}</span>-<span className={g.scoreB > g.scoreA ? 'text-[#E3FDFD] font-bold' : 'text-[#E3FDFD]/55'}>{g.scoreB}</span>
                             </span>
                           ))}
                         </div>
@@ -174,8 +174,8 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                       {state.winner && (
                         <div className={`flex items-center gap-1 text-[10px] px-2.5 py-1 rounded-lg font-bold uppercase tracking-wider self-start sm:self-auto border ${
                           state.winner === 'A' 
-                            ? 'text-red-400 bg-red-500/5 border-red-500/25' 
-                            : 'text-emerald-400 bg-emerald-500/5 border-emerald-500/25'
+                            ? 'text-[#FFF9CA] bg-[#FFF9CA]/5 border-[#FFF9CA]/25' 
+                            : 'text-[#E3FDFD] bg-[#E3FDFD]/5 border-[#E3FDFD]/25'
                         }`}>
                           <Trophy className="w-3.5 h-3.5 fill-current" />
                           <span>Winner: Tim {state.winner}</span>

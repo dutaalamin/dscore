@@ -9,39 +9,36 @@ export default function ScoreCard({
   isServing,
   isGamePoint,
   isMatchPoint,
-  themeColor, // legacy prop, kept for compatibility if needed
+  themeColor,
   onClick,
   onDecrement,
   disabled
 }) {
   
-  const isRed = themeColor === 'red';
+  const isLemon = themeColor === 'lemon';
+  const isIce = themeColor === 'ice';
   
-  // Red/Green theme style configuration
-  const borderColor = isRed 
-    ? 'border-red-500/25 focus-within:border-red-500/50' 
-    : 'border-emerald-500/25 focus-within:border-emerald-500/50';
+  // Lemon/Ice theme style configuration
+  const borderColor = isLemon 
+    ? 'border-[#FFF9CA]/25 focus-within:border-[#FFF9CA]/50' 
+    : 'border-[#E3FDFD]/25 focus-within:border-[#E3FDFD]/50';
     
-  const bgGlow = isRed 
-    ? 'bg-red-950/20 hover:bg-red-950/30' 
-    : 'bg-emerald-950/20 hover:bg-emerald-950/30';
+  const bgGlow = isLemon 
+    ? 'bg-[#FFF9CA]/5 hover:bg-[#FFF9CA]/10' 
+    : 'bg-[#E3FDFD]/5 hover:bg-[#E3FDFD]/10';
     
-  const textGlow = isRed 
-    ? 'text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.55)]' 
-    : 'text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.55)]';
+  const textGlow = isLemon 
+    ? 'text-[#FFF9CA]' 
+    : 'text-[#E3FDFD]';
     
-  const glowDot = isRed 
-    ? 'bg-red-500 shadow-[0_0_8px_#ef4444] animate-pulse' 
-    : 'bg-emerald-500 shadow-[0_0_8px_#10b981] animate-pulse';
-
   const indicatorText = isMatchPoint 
-    ? 'bg-red-600 text-white glow-red animate-pulse' 
+    ? (isLemon ? 'bg-[#FFF9CA] text-zinc-950 font-black' : 'bg-[#E3FDFD] text-zinc-950 font-black') 
     : isGamePoint 
-      ? 'bg-white text-black font-bold animate-pulse' 
+      ? 'bg-zinc-800 text-white font-bold' 
       : null;
 
   return (
-    <div className={`relative flex flex-col justify-between h-[200px] xs:h-[240px] sm:h-[320px] md:h-[400px] w-full rounded-2xl sm:rounded-3xl border glass-card ${borderColor} ${bgGlow} transition-all duration-300 overflow-hidden`}>
+    <div className={`relative flex flex-col justify-between h-[200px] xs:h-[240px] sm:h-[320px] md:h-[400px] w-full rounded-2xl sm:rounded-3xl border border-zinc-900 bg-zinc-950 transition-all duration-300 overflow-hidden ${borderColor} ${bgGlow}`}>
       {/* Tap Overlay (Clicking this increments score) */}
       <button
         onClick={onClick}
@@ -53,7 +50,7 @@ export default function ScoreCard({
         <div className="w-full flex items-start justify-between">
           <div className="space-y-0.5 pr-2 sm:pr-6 max-w-[70%]">
             {/* Team Label */}
-            <div className={`text-[8px] sm:text-xs font-bold uppercase tracking-widest ${isRed ? 'text-red-400' : 'text-emerald-400'}`}>
+            <div className={`text-[8px] sm:text-xs font-bold uppercase tracking-widest ${isLemon ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
               {teamName}
             </div>
             {/* Player Names */}
@@ -67,10 +64,10 @@ export default function ScoreCard({
             {/* Serve Text */}
             <div className="h-5 sm:h-6 flex items-center justify-end">
               {isServing ? (
-                <span className={`bg-black/40 border rounded-full px-2 py-0.5 sm:px-3 text-[9px] sm:text-[11px] font-bold tracking-wider uppercase animate-pulse ${
-                  isRed 
-                    ? 'border-red-500/30 text-red-400 shadow-[0_0_8px_rgba(239,68,68,0.25)]' 
-                    : 'border-emerald-500/30 text-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.25)]'
+                <span className={`bg-zinc-900 border rounded-full px-2 py-0.5 sm:px-3 text-[9px] sm:text-[11px] font-bold tracking-wider uppercase ${
+                  isLemon 
+                    ? 'border-[#FFF9CA]/30 text-[#FFF9CA]' 
+                    : 'border-[#E3FDFD]/30 text-[#E3FDFD]'
                 }`}>
                   Serve
                 </span>
@@ -81,11 +78,11 @@ export default function ScoreCard({
             
             {/* Sets Tracker Text */}
             <div className="flex items-center mt-1 sm:mt-2">
-              <div className={`bg-black/40 border rounded px-2 py-0.5 sm:px-3 sm:py-1 flex items-center gap-1.5 ${
-                isRed ? 'border-red-500/20' : 'border-emerald-500/20'
+              <div className={`bg-zinc-900 border rounded px-2 py-0.5 sm:px-3 sm:py-1 flex items-center gap-1.5 ${
+                isLemon ? 'border-[#FFF9CA]/20' : 'border-[#E3FDFD]/20'
               }`}>
-                <span className="text-[9px] sm:text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Set</span>
-                <span className={`text-xs sm:text-sm font-black ${isRed ? 'text-red-400' : 'text-emerald-400'}`}>{gamesWon}</span>
+                <span className="text-[9px] sm:text-[10px] text-gray-500 font-semibold uppercase tracking-wider">Set</span>
+                <span className={`text-xs sm:text-sm font-black ${isLemon ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>{gamesWon}</span>
               </div>
             </div>
           </div>
