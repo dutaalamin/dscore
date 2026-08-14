@@ -286,7 +286,7 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
             </div>
 
             {/* Score Summary Box */}
-            <div className="bg-zinc-900/30 rounded-2xl p-4 border border-zinc-800/80">
+            <div className="bg-zinc-900/40 rounded-2xl p-4">
               <div className="text-[10px] text-gray-500 font-sans font-bold uppercase tracking-wider mb-1">Skor Akhir Game</div>
               <div className="font-digital text-3xl font-black">
                 <span className="text-[#FFF9CA]">{gameHistory[gameHistory.length - 1]?.scoreA}</span>
@@ -295,17 +295,12 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
               </div>
             </div>
 
-            <div className="p-3 bg-zinc-900/10 border border-zinc-850 text-zinc-400 text-xs rounded-xl flex items-center justify-center gap-2 font-sans font-bold">
-              <Award className="w-4 h-4 text-amber-500" />
-              <span>Poin Tersinkronisasi Online</span>
-            </div>
-
             <button
               onClick={() => {
                 playSound('click');
                 dismissGameEnded();
               }}
-              className="w-full py-3.5 bg-zinc-900 border border-zinc-800 text-white font-bold hover:bg-zinc-800 rounded-xl transition-all duration-200 shadow-lg active:scale-[0.98]"
+              className="w-full py-3.5 bg-zinc-900 text-white font-bold hover:bg-zinc-800 rounded-xl transition-all duration-200 shadow-lg active:scale-[0.98]"
             >
               Lanjutkan Game Berikutnya
             </button>
