@@ -311,14 +311,14 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
       {/* 2. Match Ended (Winner) Screen */}
       {matchEnded && (
         <div className="fixed inset-0 bg-zinc-950 z-50 overflow-y-auto flex flex-col animate-fade-in">
-          <div className="flex-1 flex flex-col items-center justify-center p-6 max-w-3xl mx-auto w-full space-y-12 my-auto">
+          <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 max-w-3xl mx-auto w-full space-y-6 sm:space-y-12 my-auto">
             
-            <div className="text-center space-y-4">
-              <div className="inline-block px-3 py-1 bg-zinc-900 rounded-full text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">
+            <div className="text-center space-y-2 sm:space-y-4">
+              <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-widest mb-2 sm:mb-4">
                 Detail Pertandingan
-              </div>
-              <h3 className="text-xs text-gray-500 uppercase tracking-widest font-bold">Pemenang</h3>
-              <h1 className={`text-4xl sm:text-6xl font-black tracking-tight uppercase ${winner === 'A' ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
+              </h2>
+              <h3 className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest font-bold mt-2">Pemenang</h3>
+              <h1 className={`text-3xl sm:text-6xl font-black tracking-tight uppercase ${winner === 'A' ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
                 {winner === 'A' ? playerANames.join(' & ') : playerBNames.join(' & ')}
               </h1>
             </div>
@@ -326,7 +326,7 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
             <div className="w-full max-w-lg space-y-2">
               <div className="space-y-0 border-t border-b border-zinc-900/50 py-2">
                 {gameHistory.map((game, idx) => (
-                  <div key={idx} className="flex flex-col items-center justify-center py-5 border-b border-zinc-900/50 last:border-0 gap-3">
+                  <div key={idx} className="flex flex-col items-center justify-center py-3 sm:py-5 border-b border-zinc-900/50 last:border-0 gap-2 sm:gap-3">
                     <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest bg-zinc-900/60 border border-zinc-800 px-3 py-1 rounded-full">
                       Set {idx + 1}
                     </span>
@@ -361,7 +361,7 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-8">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-4 sm:pt-8">
               <button
                 onClick={() => { 
                   playSound('click'); 
