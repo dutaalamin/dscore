@@ -141,13 +141,13 @@ export default function MatchHistory({ onClose, onSelectMatch }) {
                       {/* Matchup names & scores */}
                       <div className="flex flex-col gap-1 mt-1">
                         <div className="flex items-center justify-between text-xs sm:text-sm">
-                          <span className={`font-bold truncate ${state.winner === 'A' ? 'text-[#FFF9CA] font-extrabold' : 'text-[#FFF9CA]/60'}`}>
+                          <span className={`font-bold truncate ${state.winner === 'A' ? 'text-[#FFF9CA] font-extrabold' : 'text-[#FFF9CA] opacity-60'}`}>
                             {teamAName} {state.winner === 'A' && <span className="ml-1 text-[10px]">🏆</span>}
                           </span>
                           <span className="text-xs text-gray-400 font-mono px-2">{gamesA}</span>
                         </div>
                         <div className="flex items-center justify-between text-xs sm:text-sm">
-                          <span className={`font-bold truncate ${state.winner === 'B' ? 'text-[#E3FDFD] font-extrabold' : 'text-[#E3FDFD]/60'}`}>
+                          <span className={`font-bold truncate ${state.winner === 'B' ? 'text-[#E3FDFD] font-extrabold' : 'text-[#E3FDFD] opacity-60'}`}>
                             {teamBName} {state.winner === 'B' && <span className="ml-1 text-[10px]">🏆</span>}
                           </span>
                           <span className="text-xs text-gray-400 font-mono px-2">{gamesB}</span>
