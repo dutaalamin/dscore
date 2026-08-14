@@ -175,7 +175,7 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 flex flex-col h-full justify-between py-1 space-y-3 overflow-hidden">
+    <div className="w-full max-w-6xl mx-auto px-4 flex flex-col h-full justify-between py-1 space-y-3 overflow-y-auto no-scrollbar">
       
       {/* Back Button — Aligned left on mobile, absolute top-left on desktop */}
       {!isViewer && (
