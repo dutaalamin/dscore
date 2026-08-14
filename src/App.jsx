@@ -58,6 +58,8 @@ function App() {
 
   const handleStartMatch = async (config) => {
     setMatchConfig(config);
+    setSavedMatchState(null);
+    setSavedTimer(null);
     setIsPlaying(true);
     setDbError(null);
 
@@ -133,6 +135,8 @@ function App() {
     setIsPlaying(false);
     setMatchConfig(null);
     setMatchId(null);
+    setSavedMatchState(null);
+    setSavedTimer(null);
     setIsViewer(false);
     setDbError(null);
     // Bersihkan parameter query URL
