@@ -316,22 +316,11 @@ export default function Scoreboard({ matchConfig: initialMatchConfig, onBackToSe
       {/* 2. Match Ended (Winner) Screen */}
       {matchEnded && (
         <div className="fixed inset-0 bg-zinc-950 z-50 overflow-y-auto flex flex-col animate-fade-in">
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-zinc-900/50 shrink-0">
-            <h2 className="text-xs font-bold text-gray-500 tracking-widest uppercase">Detail Pertandingan</h2>
-            <button
-              onClick={() => { playSound('click'); onBackToSetup(); }}
-              className="text-xs font-bold text-gray-400 hover:text-white transition-colors"
-            >
-              Tutup
-            </button>
-          </div>
-
           <div className="flex-1 flex flex-col items-center justify-center p-6 max-w-3xl mx-auto w-full space-y-12 my-auto">
             
             <div className="text-center space-y-4">
-              <div className="inline-block px-3 py-1 border border-zinc-800 rounded-full text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">
-                Pertandingan Selesai
+              <div className="inline-block px-3 py-1 bg-zinc-900 rounded-full text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">
+                Detail Pertandingan
               </div>
               <h3 className="text-xs text-gray-500 uppercase tracking-widest font-bold">Pemenang</h3>
               <h1 className={`text-4xl sm:text-6xl font-black tracking-tight uppercase ${winner === 'A' ? 'text-[#FFF9CA]' : 'text-[#E3FDFD]'}`}>
