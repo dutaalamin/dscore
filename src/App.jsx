@@ -155,7 +155,7 @@ function App() {
   return (
     <div className={`flex flex-col justify-between w-full ${isPlaying ? 'h-screen max-h-screen overflow-hidden' : 'min-h-screen'}`}>
       {/* Main Content Area */}
-      <main className={`flex-1 flex flex-col items-center justify-center w-full px-4 ${isPlaying ? 'h-full py-2 overflow-hidden' : 'py-4'}`}>
+      <main className={`flex-1 flex flex-col items-center justify-center w-full px-4 ${isPlaying ? 'h-full py-2 overflow-hidden' : 'py-2 sm:py-4'}`}>
         {dbError && (
           <div className="w-full max-w-2xl bg-red-950/40 border border-red-500/20 text-red-200 text-xs py-3 px-4 rounded-xl mb-4 flex items-center justify-between gap-2 shadow-lg backdrop-blur-sm">
             <span><strong>Database Alert:</strong> {dbError}</span>

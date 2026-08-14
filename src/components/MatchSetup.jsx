@@ -56,7 +56,7 @@ export default function MatchSetup({ onStart }) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 py-4 sm:py-8 relative">
+    <div className="w-full max-w-2xl mx-auto px-2 sm:px-4 py-2 sm:py-8 relative">
       {/* Floating History Button */}
       <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10">
         <button
@@ -72,7 +72,7 @@ export default function MatchSetup({ onStart }) {
       </div>
 
       {/* Title Header */}
-      <div className="text-center mb-6 sm:mb-10 select-none">
+      <div className="text-center mb-4 sm:mb-10 select-none mt-2 sm:mt-0">
         <h1 className="text-3xl sm:text-4xl font-black tracking-[0.08em] text-white flex items-center justify-center">
           <span className="bg-white text-zinc-950 px-2.5 py-0.5 rounded-md mr-1.5 font-black inline-block transform -skew-x-6">D</span>
           <span>SCORE</span>
@@ -86,7 +86,7 @@ export default function MatchSetup({ onStart }) {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-zinc-950 border border-zinc-900 rounded-3xl p-5 sm:p-10 space-y-5 sm:space-y-8 shadow-2xl">
+      <form onSubmit={handleSubmit} className="bg-zinc-950 border border-zinc-900 rounded-3xl p-4 sm:p-10 space-y-4 sm:space-y-8 shadow-2xl">
         {/* Match Type Selection */}
         <div className="space-y-2">
           <label className="block text-gray-500 text-[10px] font-bold uppercase tracking-widest font-sans">Kategori Pertandingan</label>
@@ -118,7 +118,7 @@ export default function MatchSetup({ onStart }) {
         </div>
 
         {/* Player Name Fields */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 pt-0 sm:pt-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-8 pt-0 sm:pt-2">
           {/* Team A / Left Side */}
           <div className="space-y-4">
             <div className="h-px bg-zinc-900 w-full mb-1"></div>
@@ -141,7 +141,7 @@ export default function MatchSetup({ onStart }) {
                     value={playerA2}
                     onChange={(e) => setPlayerA2(e.target.value)}
                     placeholder="Nama Pemain 2"
-                    className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#FFF9CA] transition-all font-semibold"
+                    className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#FFF9CA] transition-all font-semibold"
                     required
                   />
                 </div>
@@ -171,7 +171,7 @@ export default function MatchSetup({ onStart }) {
                     value={playerB2}
                     onChange={(e) => setPlayerB2(e.target.value)}
                     placeholder="Nama Pemain 2"
-                    className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#E3FDFD] transition-all font-semibold"
+                    className="w-full bg-zinc-900/30 border border-zinc-900 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-sm text-white placeholder-zinc-700 focus:outline-none focus:border-[#E3FDFD] transition-all font-semibold"
                     required
                   />
                 </div>
@@ -181,7 +181,7 @@ export default function MatchSetup({ onStart }) {
         </div>
 
         {/* Game Rules Config */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 pt-5 sm:pt-6 border-t border-zinc-900">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-8 pt-4 sm:pt-6 border-t border-zinc-900">
           {/* Target Score */}
           <div className="space-y-2">
             <label className="block text-gray-500 text-[10px] font-bold uppercase tracking-widest">Target Poin Game</label>
@@ -240,7 +240,7 @@ export default function MatchSetup({ onStart }) {
         {/* Start Button */}
         <button
           type="submit"
-          className="w-full py-3.5 sm:py-4 px-6 rounded-xl bg-[#FFF9CA] hover:bg-[#FFF5B2] text-zinc-950 font-black text-base tracking-widest uppercase transition-all duration-200 active:scale-[0.98] shadow-md shadow-[#FFF9CA]/5"
+          className="w-full py-3 sm:py-4 px-6 rounded-xl bg-[#FFF9CA] hover:bg-[#FFF5B2] text-zinc-950 font-black text-sm sm:text-base tracking-widest uppercase transition-all duration-200 active:scale-[0.98] shadow-md shadow-[#FFF9CA]/5 mt-2 sm:mt-0"
         >
           START MATCH
         </button>
