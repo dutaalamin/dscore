@@ -378,7 +378,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
                   setShowHomeConfirm(false);
                   onBackToSetup();
                 }}
-                className="py-3 px-4 bg-red-650 text-white hover:bg-red-600 font-bold rounded-xl text-xs transition-all active:scale-[0.98]"
+                className="py-3 px-4 bg-[#FFF9CA] text-zinc-950 hover:bg-[#FFF5B2] font-black rounded-xl text-xs transition-all shadow-md active:scale-[0.98]"
               >
                 Ya, Kembali
               </button>
@@ -388,7 +388,7 @@ export default function Scoreboard({ matchConfig, onBackToSetup, matchId = null,
                   playSound('click');
                   setShowHomeConfirm(false);
                 }}
-                className="py-3 px-4 rounded-xl border border-zinc-900 bg-zinc-950 text-zinc-400 font-bold hover:bg-zinc-900 hover:text-white text-xs transition-all"
+                className="py-3 px-4 rounded-xl border border-zinc-800 bg-transparent text-zinc-400 font-bold hover:bg-zinc-900 hover:text-white text-xs transition-all"
               >
                 Batal
               </button>
